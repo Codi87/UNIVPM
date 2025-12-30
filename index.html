@@ -65,7 +65,6 @@
       line-height:1.15;
       margin:0;
       letter-spacing:.2px;
-      /* meglio wrap su mobile */
       white-space:normal;
     }
     .brand small{display:block;color:var(--muted);font-size:12px;margin-top:2px;}
@@ -234,6 +233,7 @@
              src="univpm-logo.png"
              onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%27260%27 height=%2780%27><rect width=%27260%27 height=%2780%27 rx=%2712%27 fill=%27%23ffffff%27 stroke=%27%23d0d5dd%27/><text x=%2750%25%27 y=%2752%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-size=%2714%27 fill=%27%23667085%27>UNIVPM LOGO</text></svg>';">
 
+
         <div style="min-width:0">
           <h1>UniQuiz UNIVPM Infermieristica Pesaro
             <small>Studio universitario • quiz a scelta multipla</small>
@@ -296,15 +296,6 @@
                 <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> <span class="kbd">4</span>
                 • <span class="kbd">Invio</span> • <span class="kbd">Esc</span>
               </span>
-            </div>
-
-            <div class="hr"></div>
-
-            <div class="qbox">
-              <p class="muted" style="margin:0 0 6px"><b>Nota</b></p>
-              <p class="muted" style="margin:0; font-size:13px; line-height:1.55">
-                Quiz creato a scopo formativo: le domande possono variare in base ad anno di corso e programma del docente.
-              </p>
             </div>
           </div>
 
@@ -379,13 +370,11 @@
           <div class="hr"></div>
 
           <div class="qbox">
-            <p style="margin:0 0 8px"><b>Come usarla</b></p>
-            <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:13px; line-height:1.55">
-              <li><b>Allenamento</b>: vedi subito correzione e spiegazione</li>
-              <li><b>Esame</b>: correzione alla fine con review</li>
-              <li>Puoi scegliere quante domande fare (max = disponibili)</li>
-            </ul>
-          </div>
+              <p class="muted" style="margin:0 0 6px"><b>Nota</b></p>
+              <p class="muted" style="margin:0; font-size:13px; line-height:1.55">
+                Quiz creato a scopo formativo: le domande possono variare in base ad anno di corso e programma del docente.
+              </p>
+            </div>
         </div>
       </aside>
 
@@ -405,8 +394,286 @@
  * answer = indice corretto (0..3)
  */
 const QUESTION_BANK = {
+
+  /* =========================
+   *  ENZIMI (ampliato)
+   * ========================= */
+  "Biochimica – Enzimi": [
+    { q:"Gli enzimi sono principalmente:",
+      options:["Carboidrati strutturali","Catalizzatori biologici (prevalentemente proteine)","Lipidi di membrana","Acidi nucleici sempre e solo DNA"],
+      answer:1, explain:"Gli enzimi sono catalizzatori biologici: nella maggior parte dei casi proteine (più raramente RNA catalitici)." },
+
+    { q:"Dopo aver trasformato un substrato in prodotto, un enzima:",
+      options:["Viene consumato e va sostituito","Diventa definitivamente inattivo","Torna libero e può ripetere il ciclo molte volte","Si trasforma in una vitamina del gruppo B"],
+      answer:2, explain:"Un enzima non viene consumato: dopo la reazione torna libero e può catalizzare molti cicli." },
+
+    { q:"Un enzima accelera una reazione soprattutto perché:",
+      options:["Rende i prodotti più stabili spostando l’equilibrio","Abbassa l’energia di attivazione stabilizzando lo stato di transizione","Aumenta la temperatura della cellula","Trasforma una reazione sfavorevole in favorevole"],
+      answer:1, explain:"L’enzima stabilizza lo stato di transizione e riduce la barriera di energia di attivazione." },
+
+    { q:"Quale affermazione è corretta sull’equilibrio di reazione?",
+      options:["L’enzima sposta l’equilibrio verso i prodotti","L’enzima non sposta l’equilibrio: fa raggiungerlo più velocemente","L’enzima rende possibile qualsiasi reazione anche se sfavorevole","L’enzima elimina la barriera energetica (Ea=0)"],
+      answer:1, explain:"L’enzima non cambia il punto di arrivo: non sposta l’equilibrio, accelera solo il raggiungimento dell’equilibrio." },
+
+    { q:"In una reazione reversibile, l’enzima:",
+      options:["Accelera solo la direzione in avanti","Accelera solo la direzione inversa","Accelera sia avanti sia indietro","Blocca completamente la reazione inversa"],
+      answer:2, explain:"Se una reazione è reversibile, l’enzima accelera entrambe le direzioni." },
+
+    { q:"Nelle vie metaboliche, una reazione A ⇄ B può diventare 'praticamente irreversibile' quando:",
+      options:["A è un enzima allosterico","B viene subito convertito in C e non si accumula","L’enzima viene consumato","Il pH è sempre ottimale"],
+      answer:1, explain:"Se il prodotto B viene usato subito in una tappa successiva (B→C), B non si accumula e la reazione A→B risulta di fatto unidirezionale." },
+
+    { q:"Gli enzimi possono trovarsi:",
+      options:["Solo nel sangue","Solo nel nucleo","Nel citoplasma, associati a membrane o confinati in organelli","Solo nei mitocondri"],
+      answer:2, explain:"La localizzazione enzimatica può essere citoplasmatica, di membrana o in organelli; è importante per efficienza e controllo." },
+
+    { q:"La specificità enzimatica significa che gli enzimi:",
+      options:["Catalizzano qualunque reazione indistintamente","Riconoscono il substrato giusto e possono distinguere molecole molto simili/isomeri","Funzionano solo a 0°C","Sono sempre inattivi senza ATP"],
+      answer:1, explain:"Gli enzimi riconoscono il substrato giusto e spesso distinguono anche isomeri (es. D e L), limitando reazioni indesiderate." },
+
+    { q:"Il substrato si lega in una zona precisa dell’enzima chiamata:",
+      options:["Cofattore","Sito attivo","Ribosoma","Membrana plasmatica"],
+      answer:1, explain:"Il substrato si lega al sito attivo." },
+
+    { q:"Il sito attivo comprende:",
+      options:["Solo un sito catalitico","Solo un sito di legame","Un sito di legame e un sito catalitico","Solo una tasca idrofobica senza residui reattivi"],
+      answer:2, explain:"Il sito attivo include un sito di legame (posizionamento del substrato) e un sito catalitico (residui che partecipano alla reazione)." },
+
+    { q:"Nel modello 'adattamento indotto' (induced fit):",
+      options:["Il sito attivo è già perfetto e non cambia mai","L’enzima cambia leggermente forma quando il substrato si avvicina","Il substrato cambia chimicamente prima di legarsi","La catalisi avviene senza complesso ES"],
+      answer:1, explain:"Il modello più realistico prevede piccoli cambi conformazionali dell’enzima che migliorano incastro e catalisi." },
+
+    { q:"La sola parte proteica di un enzima si chiama:",
+      options:["Oloenzima","Apoenzima","Coenzima","Substrato"],
+      answer:1, explain:"Apoenzima = sola parte proteica; oloenzima = apoenzima + componente non proteica (forma attiva)." },
+
+    { q:"L’oloenzima è:",
+      options:["Un enzima inattivo per denaturazione","Apoenzima + componente non proteica (forma completa e attiva)","Solo lo ione metallico","Solo la vitamina del gruppo B"],
+      answer:1, explain:"Oloenzima = enzima completo e attivo: apoenzima + cofattore/coenzima." },
+
+    { q:"Le componenti non proteiche (cofattori) possono essere:",
+      options:["Solo carboidrati","Solo lipidi","Ioni metallici (es. Mg2+, Zn2+, Fe2+/Fe3+) o coenzimi","Solo acqua"],
+      answer:2, explain:"I cofattori possono essere ioni metallici oppure coenzimi; molti coenzimi derivano da vitamine del gruppo B." },
+
+    { q:"Molti coenzimi derivano da:",
+      options:["Vitamine del gruppo B","Acqua e sali minerali generici","DNA mitocondriale","Emoglobina"],
+      answer:0, explain:"Molti coenzimi derivano da vitamine del gruppo B (es. NAD, FAD, PLP): senza di essi molte reazioni non procedono." },
+
+    { q:"Alcuni cofattori restano legati stabilmente all’enzima e si chiamano:",
+      options:["Siti attivi","Gruppi prostetici","Zimogeni","Allosterici"],
+      answer:1, explain:"Alcuni cofattori sono legati in modo stabile (gruppi prostetici), altri si legano e si staccano durante il ciclo catalitico." },
+
+    { q:"Lo schema semplice della catalisi enzimatica è:",
+      options:["E + P ⇄ ES ⇄ E + S","E + S ⇄ ES ⇄ E + P","S + P ⇄ EP ⇄ E + S","E + S → P (senza complessi)"],
+      answer:1, explain:"Schema: E + S ⇄ ES ⇄ E + P." },
+
+    { q:"Se aumento la concentrazione di substrato [S], la velocità di reazione:",
+      options:["Aumenta all’infinito senza limiti","Aumenta fino a saturazione dell’enzima (non all’infinito)","Diminuisce sempre","Diventa indipendente dalla quantità di enzima"],
+      answer:1, explain:"La velocità cresce con [S] ma poi si raggiunge saturazione: tutti i siti attivi sono occupati." },
+
+    { q:"Quando si dice che un enzima è 'saturo'?",
+      options:["Quando non ha più enzima libero perché tutti i siti attivi sono occupati","Quando il pH è 7","Quando la temperatura è 0°C","Quando la reazione non è reversibile"],
+      answer:0, explain:"Saturazione = tutti i siti attivi occupati dal substrato." },
+
+    { q:"Vmax è:",
+      options:["La concentrazione di substrato che porta a metà velocità","La velocità massima raggiungibile a saturazione","La misura diretta dell’affinità","Il pH ottimale"],
+      answer:1, explain:"Vmax = velocità massima quando l’enzima è saturo." },
+
+    { q:"Km è:",
+      options:["La velocità massima","La concentrazione di substrato che porta v a Vmax/2","La temperatura ottimale","La quantità di prodotto"],
+      answer:1, explain:"Km è la [S] che porta la velocità a metà del massimo: v = Vmax/2." },
+
+    { q:"In modo intuitivo, una Km bassa spesso indica:",
+      options:["Maggiore affinità apparente (l’enzima lavora bene già con poco substrato)","Minore affinità","Reazione irreversibile","Denaturazione certa"],
+      answer:0, explain:"Km bassa spesso corrisponde a maggiore affinità apparente: l’enzima lavora bene anche con poco substrato." },
+
+    { q:"Se [S] = Km, allora v è:",
+      options:["Vmax","Vmax/2","2·Vmax","0"],
+      answer:1, explain:"Se [S]=Km → v = Vmax/2." },
+
+    { q:"Confronto esochinasi vs glucochinasi: quale affermazione è corretta?",
+      options:["Glucochinasi ha Km più bassa ed è satura a digiuno","Esochinasi ha Km più alta e lavora solo dopo il pasto","Esochinasi è quasi satura a digiuno; glucochinasi ha Km più alta ed è più attiva dopo il pasto","Entrambe hanno Km identica e comportamento identico"],
+      answer:2, explain:"Esochinasi: attiva già a normali [glucosio], quasi satura a digiuno. Glucochinasi: Km più alta, più attiva quando il glucosio aumenta dopo il pasto." },
+
+    { q:"Con l’aumento di temperatura, l’attività enzimatica in genere:",
+      options:["Cresce sempre senza limiti","Cresce fino a un valore ottimale, poi cala per denaturazione","Diminuisce sempre","Non cambia mai"],
+      answer:1, explain:"La velocità cresce fino alla temperatura ottimale; oltre, la proteina può denaturare e l’enzima smette di funzionare." },
+
+    { q:"Il pH influenza l’attività enzimatica perché:",
+      options:["Modifica le cariche dei residui nel sito attivo e il legame/catalisi","Cambia la quantità totale di enzima prodotta in 1 minuto","Trasforma l’enzima in RNA","Aumenta sempre Vmax"],
+      answer:0, explain:"Se il pH cambia troppo, cambiano le cariche dei residui nel sito attivo: il legame col substrato peggiora o la catalisi cala." },
+
+    { q:"L’inibizione irreversibile è tipicamente caratterizzata da:",
+      options:["Legame debole che si stacca facilmente","Legame molto stabile, spesso covalente, che inattiva l’enzima","Aumento di Vmax","Effetto annullabile aumentando sempre il substrato"],
+      answer:1, explain:"Inibizione irreversibile: legame molto stabile (spesso covalente) che inattiva l’enzima; tipica di tossine/composti pericolosi." },
+
+    { q:"Nell’inibizione competitiva l’inibitore:",
+      options:["Si lega in un altro punto diverso dal sito attivo","Compete col substrato per il sito attivo","Si lega solo al complesso ES","Aumenta l’attività enzimatica"],
+      answer:1, explain:"Competitiva: l’inibitore compete con il substrato per il sito attivo." },
+
+    { q:"Un modo per ridurre l’effetto di un inibitore competitivo è:",
+      options:["Diminuire la concentrazione di substrato","Aumentare la concentrazione di substrato","Aumentare la temperatura oltre l’ottimo","Ridurre sempre il pH a 1"],
+      answer:1, explain:"Di solito l’effetto competitivo si riduce aumentando il substrato." },
+
+    { q:"Inibizione non competitiva: l’inibitore di solito:",
+      options:["Si lega al sito attivo","Si lega in un altro punto e riduce l’attività anche se il substrato è presente","Si lega solo al substrato libero","Trasforma ES in E + S senza prodotti"],
+      answer:1, explain:"Non competitiva: l’inibitore si lega in un punto diverso dal sito attivo e riduce l’attività anche in presenza di substrato." },
+
+    { q:"Inibizione acompetitiva (uncompetitive): l’inibitore:",
+      options:["Si lega solo al complesso enzima-substrato (ES)","Compete col substrato per il sito attivo","Si lega solo all’enzima libero (E)","Non si lega mai: è solo un effetto del pH"],
+      answer:0, explain:"Acompetitiva: l’inibitore si lega solo al complesso ES, riducendo ulteriormente la catalisi." },
+
+    { q:"Secondo il mini-schema di ripasso, l’inibizione competitiva ha tipicamente effetto su:",
+      options:["Km aumenta, Vmax invariata","Km diminuisce, Vmax aumenta","Km invariata, Vmax diminuisce","Km e Vmax invariati"],
+      answer:0, explain:"Competitiva → Km aumenta (serve più substrato per metà Vmax), Vmax invariata." },
+
+    { q:"Secondo il mini-schema di ripasso, l’inibizione non competitiva ha tipicamente effetto su:",
+      options:["Km diminuisce, Vmax diminuisce","Km aumenta, Vmax aumenta","Km invariata (spesso), Vmax diminuisce","Km aumenta, Vmax diminuisce"],
+      answer:2, explain:"Non competitiva → Vmax diminuisce; Km spesso invariata (dipende dal modello)." },
+
+    { q:"Secondo il mini-schema di ripasso, l’inibizione acompetitiva (uncompetitive) ha tipicamente effetto su:",
+      options:["Km diminuisce, Vmax diminuisce","Km aumenta, Vmax invariata","Km invariata, Vmax invariata","Km aumenta, Vmax aumenta"],
+      answer:0, explain:"Acompetitiva → diminuiscono sia Km che Vmax (si lega a ES e lo “toglie” dal ciclo)." },
+
+    { q:"Un enzima allosterico è regolato perché:",
+      options:["Non ha sito attivo","Un effettore si lega in un sito diverso dal sito attivo e cambia la forma/attività","Funziona solo senza substrato","È sempre monomerico e non regolabile"],
+      answer:1, explain:"Allosteria: un effettore si lega in un sito diverso dal sito attivo e modifica la conformazione e l’attività." },
+
+    { q:"La cooperatività positiva porta tipicamente a una curva velocità-[S]:",
+      options:["Lineare","Iperbolica classica","Sigmoide (a S)","A campana"],
+      answer:2, explain:"Con cooperatività positiva la curva diventa sigmoide (a S)." },
+
+    { q:"La fosforilazione come regolazione enzimatica implica che:",
+      options:["Le protein-chinasi aggiungono gruppi fosfato e le fosfatasi li rimuovono","Le fosfatasi aggiungono fosfato e le chinasi lo rimuovono","Avviene solo su glicina","Rende sempre l’enzima inattivo in modo irreversibile"],
+      answer:0, explain:"Chinasi aggiungono fosfato (Ser/Thr/Tyr), fosfatasi lo rimuovono; può attivare o inattivare." },
+
+    { q:"Gli isoenzimi (isoforme) sono utili in diagnosi perché:",
+      options:["Catalizzano reazioni diverse in tutti i tessuti","Sono identici e quindi non distinguibili","Catalizzano la stessa reazione ma con distribuzione tissutale diversa: nel sangue indicano l’origine del danno","Esistono solo nei batteri"],
+      answer:2, explain:"Isoenzimi: stessa reazione, varianti diverse e distribuzione tissutale diversa; utili per capire l’origine del danno." },
+
+    { q:"Esempio citato di isoenzimi separabili per elettroforesi e utili in diagnosi:",
+      options:["Albumina","Lattato deidrogenasi (LDH)","Emoglobina","Insulina"],
+      answer:1, explain:"LDH è un esempio classico di isoenzimi separabili per elettroforesi." },
+
+    { q:"Un altro esempio citato è la creatinfosfochinasi (CK/CPK), importante per:",
+      options:["Metabolismo energetico del muscolo; isoenzimi con subunità M e B","Digestione delle proteine nello stomaco","Sintesi del DNA nel nucleo","Trasporto dell’ossigeno nei globuli rossi"],
+      answer:0, explain:"CK (CPK) partecipa al metabolismo energetico del muscolo; isoenzimi legati a combinazioni di subunità M e B." },
+
+    /* Extra: classi EC (ripasso) */
+    { q:"Quale classe EC comprende le deidrogenasi (reazioni redox)?",
+      options:["Idrolasi","Transferasi","Ossidoreduttasi","Ligasi"],
+      answer:2, explain:"Le ossidoreduttasi catalizzano reazioni di ossidoriduzione (es. deidrogenasi/ossidasi)." },
+
+    { q:"Le idrolasi catalizzano soprattutto:",
+      options:["Tagli di legami usando H2O (idrolisi)","Trasferimenti di fosfati usando ATP","Riarrangiamenti intramolecolari","Trasporto di ioni attraverso membrane"],
+      answer:0, explain:"Idrolasi = rottura di legami con partecipazione dell’acqua (proteasi, lipasi, glicosidasi...)." },
+
+    { q:"Le ligasi in genere richiedono:",
+      options:["Solo acqua","ATP (energia) per formare nuovi legami","Sempre NADH","Solo CO2"],
+      answer:1, explain:"Ligasi: formano nuovi legami consumando energia (spesso ATP → ADP o ATP → AMP)." }
+  ],
+
+  /* =========================
+   *  PROTEINE (nuovo)
+   * ========================= */
+  "Biochimica – Proteine": [
+    { q:"Le proteine sono macromolecole costituite da:",
+      options:["Nucleotidi","Amminoacidi legati da legami peptidici","Monosaccaridi","Acidi grassi"],
+      answer:1, explain:"Le proteine sono polimeri di amminoacidi uniti da legami peptidici." },
+
+    { q:"Un amminoacido è definito da:",
+      options:["Gruppo amminico, gruppo carbossilico, H e catena laterale R","Solo gruppo fosfato e base azotata","Solo catena idrocarburica","Solo un anello steroideo"],
+      answer:0, explain:"Struttura base: -NH2 (amminico), -COOH (carbossilico), H e catena R." },
+
+    { q:"La catena laterale R determina soprattutto:",
+      options:["Il numero di legami peptidici","Le proprietà chimico-fisiche dell’amminoacido (polare, apolare, carico)","La presenza di DNA","La presenza di ossigeno nel sangue"],
+      answer:1, explain:"Le proprietà dell’amminoacido (polare/apolare, carica) dipendono dalla catena R." },
+
+    { q:"Gli amminoacidi essenziali sono quelli che:",
+      options:["Il corpo produce in grandi quantità","Non possono essere sintetizzati (o non abbastanza) e vanno introdotti con la dieta","Sono presenti solo nelle piante","Sono sempre aromatici"],
+      answer:1, explain:"Essenziali = devono essere introdotti con l’alimentazione." },
+
+    { q:"Il legame peptidico si forma tra:",
+      options:["Due gruppi amminici","Due gruppi carbossilici","Gruppo carbossilico di un AA e gruppo amminico di un altro (con perdita di H2O)","Due catene R"],
+      answer:2, explain:"Si forma per condensazione: COOH + NH2 → legame peptidico + H2O." },
+
+    { q:"Una proprietà importante del legame peptidico è che:",
+      options:["È molto flessibile e ruota liberamente","È rigido e planare per risonanza","È sempre ionico","Si rompe facilmente a pH neutro"],
+      answer:1, explain:"Per risonanza ha carattere di doppio legame: è rigido e planare (rotazione limitata)." },
+
+    { q:"La struttura primaria di una proteina è:",
+      options:["Il ripiegamento 3D globale","La sequenza degli amminoacidi","L’unione di più subunità","La presenza di ponti disolfuro"],
+      answer:1, explain:"Primaria = ordine degli amminoacidi lungo la catena." },
+
+    { q:"La struttura secondaria comprende tipicamente:",
+      options:["α-elica e β-foglietto","Solo legami peptidici","Solo disolfuri","Solo aggregati di più proteine"],
+      answer:0, explain:"Secondaria = organizzazioni locali regolari (α-elica, β-foglietto)." },
+
+    { q:"La struttura terziaria descrive:",
+      options:["Solo la sequenza","Il ripiegamento 3D complessivo di una singola catena","Solo l’unione di subunità","Solo la presenza di carboidrati"],
+      answer:1, explain:"Terziaria = struttura 3D di una catena polipeptidica." },
+
+    { q:"La struttura quaternaria riguarda:",
+      options:["Il numero di legami peptidici","L’associazione di più catene (subunità) in un complesso funzionale","Solo i ponti H","Solo i lipidi di membrana"],
+      answer:1, explain:"Quaternaria = come più subunità si assemblano (es. emoglobina)." },
+
+    { q:"Le proteine fibrose sono tipicamente:",
+      options:["Globulari e solubili","Allungate/strutturali (es. collagene, cheratina)","Sempre enzimatiche","Sempre nel plasma"],
+      answer:1, explain:"Fibrose = strutturali, spesso insolubili (collagene, elastina, cheratina)." },
+
+    { q:"Le proteine globulari sono tipicamente:",
+      options:["Filamenti rigidi","Ripiegate in forma compatta e spesso funzionali (enzimi, trasporto)","Solo presenti nei capelli","Sempre insolubili"],
+      answer:1, explain:"Globulari = forma compatta, spesso solubili e funzionali." },
+
+    { q:"Una proteina coniugata è:",
+      options:["Una proteina fatta solo da amminoacidi","Una proteina che contiene anche una parte non proteica (gruppo prostetico)","Una proteina senza struttura terziaria","Una proteina che non può denaturare"],
+      answer:1, explain:"Coniugata = parte proteica + componente non proteica (es. eme, zuccheri, metalli...)." },
+
+    { q:"Il ponte disolfuro (S–S) si forma tra:",
+      options:["Due alanine","Due cisteine","Due lisine","Due glutammati"],
+      answer:1, explain:"Ponte disolfuro = ossidazione di due gruppi -SH della cisteina." },
+
+    { q:"La denaturazione di una proteina indica soprattutto:",
+      options:["Rottura dei legami peptidici (struttura primaria)","Perdita della struttura 3D (secondaria/terziaria/quaternaria) senza rompere la primaria","Trasformazione in carboidrato","Aumento della sequenza amminoacidica"],
+      answer:1, explain:"Denaturazione = perdita della struttura 3D; la primaria di solito resta intatta." },
+
+    { q:"Quale condizione può favorire la denaturazione?",
+      options:["Temperatura alta o pH estremo","Aumento di vitamine","Diminuzione di substrato","Aumento di ossigeno nel sangue"],
+      answer:0, explain:"Calore e pH estremo alterano interazioni deboli e destabilizzano la struttura 3D." },
+
+    { q:"Nel processo digestivo, lo stomaco avvia la digestione proteica grazie a:",
+      options:["Amilasi","Pepsina (attivata da HCl)","Lipasi pancreatica","Lattasi"],
+      answer:1, explain:"Pepsinogeno → pepsina in ambiente acido (HCl): inizia la proteolisi." },
+
+    { q:"Pepsinogeno è un esempio di:",
+      options:["Zimogeno (precursore inattivo)","Vitamina","Coenzima","Polisaccaride"],
+      answer:0, explain:"Zimogeno = enzima prodotto inattivo, poi attivato (protezione da autodigestione)." },
+
+    { q:"Nel duodeno, la tripsina è importante perché:",
+      options:["Digerisce solo lipidi","Attiva altri zimogeni pancreatici oltre a digerire proteine","Trasporta ossigeno","Forma glicogeno"],
+      answer:1, explain:"La tripsina avvia una cascata di attivazione (chimotripsina, elastasi, carbossipeptidasi...)." },
+
+    { q:"Gli enzimi dell’orletto a spazzola che completano la digestione proteica includono:",
+      options:["Aminopeptidasi e dipeptidasi","Amilasi e lattasi","Lipasi e colipasi","Transferrina e albumina"],
+      answer:0, explain:"Aminopeptidasi (stacca AA) e dipeptidasi (rompe dipeptidi) completano la digestione." },
+
+    { q:"Durante l’assorbimento intestinale possono entrare:",
+      options:["Solo proteine intere","Solo polipeptidi lunghi","Amminoacidi e anche di-/tri-peptidi tramite trasportatori","Solo azoto gassoso"],
+      answer:2, explain:"Si assorbono AA e anche piccoli peptidi (di-/tri-peptidi) tramite trasportatori specifici." },
+
+    { q:"Tra le funzioni delle proteine NON rientra:",
+      options:["Catalisi (enzimi)","Trasporto (es. Hb)","Riserva e struttura","Essere sempre la principale riserva energetica del corpo"],
+      answer:3, explain:"La principale riserva energetica è lipidica; le proteine possono essere usate a scopo energetico ma non sono la scorta primaria." },
+
+    { q:"In cucina, la cottura delle proteine spesso:",
+      options:["Le trasforma in acidi nucleici","Le denatura rendendole più accessibili alla digestione","Le rende sempre tossiche","Rompere sempre i legami peptidici"],
+      answer:1, explain:"La cottura denatura: aumenta accessibilità ai proteasi (es. albume d’uovo)." }
+  ],
+
+  /* =========================
+   *  Hb e Mb (già presente)
+   * ========================= */
   "Biochimica – Emoglobina e Mioglobina": [
-    // Base
     { q:"Perché Hb e Mb sono necessarie negli organismi aerobici?",
       options:["L’O2 è troppo reattivo per stare nei tessuti","L’O2 è poco solubile in acqua/plasma","L’O2 è prodotto dai mitocondri","Il sangue non circola nei mammiferi"],
       answer:1, explain:"L’O2 è poco solubile in acqua/plasma: servono proteine che lo leghino in modo controllato." },
@@ -427,7 +694,6 @@ const QUESTION_BANK = {
       options:["Non ha altre funzioni","Trasporta parte della CO2 e contribuisce al pH (tampone)","Serve solo nel muscolo","È un enzima digestivo"],
       answer:1, explain:"Hb riporta parte della CO2 e aiuta anche la regolazione del pH grazie alla capacità tampone." },
 
-    // Strutture
     { q:"La mioglobina è composta da:",
       options:["4 subunità (quaternaria)","1 catena (terziaria)","2 catene α e 2 γ","Solo eme senza globina"],
       answer:1, explain:"Mb è monomerica: una catena polipeptidica, struttura terziaria." },
@@ -448,7 +714,6 @@ const QUESTION_BANK = {
       options:["Hanno solo amminoacidi idrofobici","Hanno una parte proteica (globina) e una parte non proteica (eme)","Sono legate a zuccheri","Sono legate a DNA"],
       answer:1, explain:"Sono formate da globina + gruppo eme indispensabile al legame dell’ossigeno." },
 
-    // Eme e istidine
     { q:"Il gruppo eme è:",
       options:["Un carboidrato","Un anello porfirinico con ferro centrale","Un fosfolipide","Un peptide segnale"],
       answer:1, explain:"Eme = porfirina (protoporfirina) + Fe al centro." },
@@ -465,11 +730,6 @@ const QUESTION_BANK = {
       options:["Lega direttamente il ferro","Non lega il ferro ma orienta l’O2 e stabilizza il legame reversibile","Serve per ossidare Fe2+ a Fe3+","Blocca la cooperatività"],
       answer:1, explain:"Non coordina il Fe: aiuta a orientare O2 e rende il legame stabile ma reversibile." },
 
-    { q:"Perché la globina crea una tasca idrofobica attorno all’eme?",
-      options:["Per aumentare la solubilità dell’eme in acqua","Per proteggere l’eme da reazioni indesiderate e ossidazioni","Per far legare meglio CO2","Per eliminare l’ossigeno"],
-      answer:1, explain:"L’eme libero reagirebbe più facilmente: la tasca lo protegge." },
-
-    // Fe2+/Fe3+ e CO
     { q:"Per legare bene l’ossigeno il ferro deve essere:",
       options:["Fe3+","Fe2+","Fe0","Fe+ (monovalente)"],
       answer:1, explain:"Il legame efficace e reversibile con O2 avviene con Fe2+ (ferroso)." },
@@ -482,7 +742,6 @@ const QUESTION_BANK = {
       options:["Perché aumenta la pO2","Perché si lega all’eme con affinità molto maggiore di O2","Perché rompe i globuli rossi sempre","Perché trasforma Hb in Mb"],
       answer:1, explain:"Il CO occupa il sito dell’eme e impedisce il legame dell’ossigeno." },
 
-    // Curve e cooperatività
     { q:"Curva di saturazione della mioglobina:",
       options:["Sigmoide","Iperbolica","Lineare","A gradini"],
       answer:1, explain:"Mb è monomerica e non cooperativa → curva iperbolica." },
@@ -491,57 +750,34 @@ const QUESTION_BANK = {
       options:["Iperbolica","Sigmoide","Lineare","A campana"],
       answer:1, explain:"Hb è cooperativa → curva sigmoide." },
 
-    { q:"La cooperatività dell’Hb dipende soprattutto da:",
-      options:["Un solo eme","Comunicazione tra subunità (struttura quaternaria)","Fe3+","Assenza di globina"],
-      answer:1, explain:"Le subunità “comunicano”: legare O2 facilita i legami successivi." },
-
     { q:"Lo stato T dell’emoglobina è:",
       options:["Alta affinità per O2","Bassa affinità per O2","Forma della mioglobina","Legame irreversibile con O2"],
       answer:1, explain:"Stato T (“teso”) = bassa affinità; stato R (“rilassato”) = alta affinità." },
 
-    // Allosteria: Bohr, CO2, 2,3-BPG, temperatura
     { q:"Effetto Bohr (idea corretta):",
       options:["pH più alto → rilascio O2 maggiore","pH più basso → rilascio O2 maggiore","CO2 diminuisce → rilascio O2 maggiore","2,3-BPG diminuisce → rilascio O2 maggiore"],
       answer:1, explain:"Nei tessuti attivi pH scende (H+↑) → Hb riduce affinità e scarica più O2." },
-
-    { q:"Aumento di CO2 nei tessuti:",
-      options:["Favorisce il legame di O2","Favorisce il rilascio di O2","Non cambia nulla","Blocca la cooperatività"],
-      answer:1, explain:"CO2 contribuisce (direttamente e via H+) a stabilizzare la forma deossigenata e favorisce lo scarico di O2." },
 
     { q:"Il 2,3-BPG:",
       options:["Si lega meglio all’Hb ossigenata e aumenta l’affinità","Si lega meglio all’Hb deossigenata e favorisce il rilascio di O2","È prodotto nel fegato e blocca Hb","Non esiste nei globuli rossi"],
       answer:1, explain:"2,3-BPG (nei GR) stabilizza Hb deossigenata → più rilascio di O2 ai tessuti." },
 
-    { q:"Aumento di temperatura nei tessuti attivi:",
-      options:["Aumenta affinità Hb per O2","Favorisce dissociazione Hb–O2 e quindi rilascio","Non ha effetto","Trasforma Fe2+ in Fe3+"],
-      answer:1, explain:"Temperatura↑ favorisce la dissociazione Hb–O2: aiuta lo “scarico” di O2." },
-
-    { q:"Adattamento alle alte quote (risposta tipica):",
-      options:["Diminuisce Hb e diminuisce 2,3-BPG","Aumenta Hb e aumenta 2,3-BPG","Aumenta Mb nel sangue","Diminuisce la cooperatività"],
-      answer:1, explain:"In alta quota pO2 bassa → si aumenta produzione Hb e 2,3-BPG per favorire consegna di O2 ai tessuti." },
-
-    // Varianti
     { q:"Hb fetale (HbF) è composta da:",
       options:["α2β2","α2γ2","β4","α4"],
       answer:1, explain:"HbF = α2γ2; dopo nascita γ → β." },
 
-    { q:"Emoglobinopatie vs talassemie:",
-      options:["Entrambe solo quantitative","Emoglobinopatie: mutazioni qualitative; Talassemie: mutazioni quantitative","Emoglobinopatie: carenza di ferro; Talassemie: eccesso di ferro","Non c’è differenza"],
-      answer:1, explain:"Emoglobinopatie cambiano la sequenza; talassemie cambiano la quantità di catene prodotte." },
-
     { q:"HbS (anemia falciforme): qual è la sostituzione classica?",
       options:["Glu → Val nella catena β (posizione 6)","Val → Glu nella catena α","Gly → Ala nella catena γ","His → Lys nel gruppo eme"],
       answer:0, explain:"HbS: sostituzione Glu→Val nella catena β (pos. 6), con ridotta solubilità e falcizzazione." },
-
-    { q:"Nelle talassemie il problema principale è:",
-      options:["Il ferro non lega O2","La quantità di globina prodotta (α o β) è ridotta/assente","Hb diventa Mb","Si produce solo HbF"],
-      answer:1, explain:"Talassemie = difetto quantitativo di sintesi delle catene globiniche." },
 
     { q:"HbA1c è utile perché:",
       options:["Indica solo la glicemia del momento","Riflette la media del controllo glicemico nelle 4–8 settimane precedenti","Misura la pO2 nel sangue","Serve per diagnosticare anemia falciforme"],
       answer:1, explain:"HbA1c deriva da glicazione non enzimatica: riflette la media glicemica delle settimane precedenti." }
   ],
 
+  /* =========================
+   *  PROTEINE PLASMATICHE
+   * ========================= */
   "Biochimica – Proteine plasmatiche": [
     { q:"Le proteine plasmatiche sono:",
       options:["Proteine dentro i globuli rossi","Proteine disciolte nella parte liquida del sangue","Proteine solo del siero","Proteine solo del midollo osseo"],
@@ -549,7 +785,7 @@ const QUESTION_BANK = {
 
     { q:"Nel plasma le proteine rappresentano circa:",
       options:["1–2%","3–4%","6–8%","12–15%"],
-      answer:2, explain:"Nel documento: circa 6–8% del volume plasmatico." },
+      answer:2, explain:"Valore tipico: circa 6–8%." },
 
     { q:"Le tre grandi famiglie di proteine plasmatiche sono:",
       options:["Albumina, prealbumina, complemento","Albumina, globuline, fibrinogeno","Globuline, ferritina, transferrina","Fibrina, immunoglobuline, enzimi"],
@@ -577,7 +813,7 @@ const QUESTION_BANK = {
 
     { q:"Pressione oncotica: perché le proteine la determinano?",
       options:["Perché attraversano facilmente i capillari","Perché restano nei vasi e richiamano acqua","Perché distruggono i batteri","Perché aumentano la glicemia"],
-      answer:1, explain:"Molte proteine non attraversano i capillari: restano nei vasi e trattengono acqua." },
+      answer:1, explain:"Molte proteine restano nei vasi e trattengono acqua (pressione oncotica)." },
 
     { q:"L’elettroforesi separa le proteine soprattutto in base a:",
       options:["Temperatura e viscosità","Carica e dimensione","Colore e densità","Solubilità e pressione"],
@@ -587,29 +823,9 @@ const QUESTION_BANK = {
       options:["Catodo (-)","Anodo (+)","Non migrano","Dipende solo dalla temperatura"],
       answer:1, explain:"Carica negativa → anodo (+)." },
 
-    { q:"A pH basico (~8,6) molte proteine sieriche risultano:",
-      options:["Positive e vanno al catodo","Negative e vanno all’anodo","Neutre e non migrano","Sempre legate ai globuli rossi"],
-      answer:1, explain:"A pH 8,6 molte risultano negative → anodo." },
-
     { q:"Frazioni tipiche nel protidogramma:",
       options:["Albumina, α1, α2, β, γ","α, β, δ, ε, ω","Albumina, fibrina, piastrine","Globuli rossi, globuli bianchi, piastrine"],
       answer:0, explain:"Tracciato classico: albumina + α1 + α2 + β + γ." },
-
-    { q:"In un profilo “normale”, il picco più alto è:",
-      options:["γ","β","Albumina","α2"],
-      answer:2, explain:"Il picco albumina è tipicamente il più alto." },
-
-    { q:"Quale proteina si trova spesso nella frazione α1?",
-      options:["α1-antitripsina","Transferrina","IgG","Fibrinogeno"],
-      answer:0, explain:"Esempio tipico: α1-antitripsina." },
-
-    { q:"Quale coppia è tipica della frazione α2?",
-      options:["IgA e IgG","α2-macroglobulina e aptoglobina","Albumina e fibrina","C3 e transferrina"],
-      answer:1, explain:"α2: α2-macroglobulina e aptoglobina (esempi)." },
-
-    { q:"Nella frazione β trovi spesso:",
-      options:["Transferrina e componenti del complemento (es. C3)","Solo albumina","Solo immunoglobuline","Solo fibrina"],
-      answer:0, explain:"β: transferrina + complemento (es. C3)." },
 
     { q:"La zona γ contiene principalmente:",
       options:["Albumina","Immunoglobuline","Fibrinogeno","Transferrina"],
@@ -623,24 +839,18 @@ const QUESTION_BANK = {
       options:["Siero","Plasma","Urina","Saliva"],
       answer:1, explain:"Per la coagulazione servono fattori presenti nel plasma." },
 
-    // Pre-analitica
     { q:"Digiuno consigliato per molti esami:",
       options:["1–2 ore","4 ore","8–12 ore","24 ore sempre"],
-      answer:2, explain:"Nel documento: spesso 8–12 ore." },
+      answer:2, explain:"Spesso si richiede digiuno 8–12 ore per standardizzare." },
 
     { q:"Per ridurre variazioni da postura si consiglia:",
       options:["Far correre il paziente","Far restare seduto ~15 minuti prima del prelievo","Tenere il braccio sollevato 30 min","Fare sempre il prelievo da sdraiati"],
-      answer:1, explain:"Regola pratica: paziente seduto circa 15 minuti." },
-
-    { q:"Per ridurre variazioni circadiane, spesso il prelievo si fa:",
-      options:["Di notte","A pranzo","Al mattino ~7–9","Solo nel pomeriggio"],
-      answer:2, explain:"Nel documento: spesso 7–9." },
+      answer:1, explain:"Regola pratica: paziente seduto ~15 minuti prima del prelievo." },
 
     { q:"Laccio emostatico: regola pratica per evitare alterazioni da stasi:",
       options:["Lasciarlo 5 minuti","Non stringerlo mai","Entro ~60 secondi","Solo se il paziente è a digiuno"],
-      answer:2, explain:"Nel documento: entro 60 secondi (non troppo stretto né troppo lungo)." },
+      answer:2, explain:"Il laccio non dovrebbe restare troppo a lungo (indicativamente <60s)." },
 
-    // Anticoagulanti
     { q:"EDTA blocca la coagulazione perché:",
       options:["Aumenta la temperatura","Chelando il calcio","Aumenta il ferro","Denatura l’albumina"],
       answer:1, explain:"EDTA chela Ca2+ (essenziale nella coagulazione)." },
@@ -649,9 +859,244 @@ const QUESTION_BANK = {
       options:["Chelano il calcio in modo reversibile","Non interferiscono mai con nulla","Trasformano fibrinogeno in fibrina","Aumentano il pH a 9,0"],
       answer:0, explain:"Chelano Ca2+ in modo reversibile: utile nei test di coagulazione." },
 
-    { q:"Eparina: nota importante dal documento",
-      options:["È perfetta per studi di coagulazione","Non è adatta agli studi della coagulazione","È un chelante del calcio come EDTA","Serve solo per siero"],
-      answer:1, explain:"Nel documento: eparina molto usata, ma non adatta agli studi della coagulazione." }
+    { q:"Eparina: nota importante",
+      options:["È perfetta per studi di coagulazione","Non è adatta agli studi della coagulazione (in genere)","È un chelante del calcio come EDTA","Serve solo per siero"],
+      answer:1, explain:"Eparina usata in vari contesti, ma in genere non è la scelta per i test di coagulazione." }
+  ],
+
+  /* =========================
+   *  GLUCIDI (nuovo)
+   * ========================= */
+  "Biochimica – Glucidi": [
+    { q:"I glucidi (carboidrati) forniscono circa:",
+      options:["2 kcal/g","4 kcal/g","7 kcal/g","9 kcal/g"],
+      answer:1, explain:"Carboidrati ≈ 4 kcal per grammo." },
+
+    { q:"Una funzione NON energetica dei glucidi è:",
+      options:["Strutturale (es. cellulosa, glicoproteine)","Riserva (glicogeno)","Catalisi enzimatica diretta (come proteine)","Fermentazione delle fibre nel colon"],
+      answer:2, explain:"La catalisi è tipicamente funzione delle proteine (enzimi). I glucidi hanno ruoli energetici/strutturali/di riserva e fibre fermentabili." },
+
+    { q:"I monosaccaridi più rilevanti nella dieta umana sono:",
+      options:["Glucosio, fruttosio, galattosio","Saccarosio, lattosio, maltosio","Amido, glicogeno, cellulosa","Colesterolo, trigliceridi, fosfolipidi"],
+      answer:0, explain:"Monosaccaridi principali: glucosio, fruttosio, galattosio." },
+
+    { q:"Un aldoso si distingue perché possiede:",
+      options:["Gruppo aldeidico","Gruppo chetonico","Gruppo fosfato","Gruppo amminico"],
+      answer:0, explain:"Aldosi = aldeide; chetosi = chetone." },
+
+    { q:"Il legame che unisce due monosaccaridi in un disaccaride è:",
+      options:["Legame peptidico","Legame glicosidico","Ponte disolfuro","Legame fosfodiestere"],
+      answer:1, explain:"Disaccaridi: monosaccaridi uniti da legame glicosidico." },
+
+    { q:"Il saccarosio è formato da:",
+      options:["Glucosio + glucosio","Glucosio + fruttosio","Glucosio + galattosio","Fruttosio + galattosio"],
+      answer:1, explain:"Saccarosio = glucosio + fruttosio." },
+
+    { q:"Il lattosio è formato da:",
+      options:["Glucosio + galattosio","Glucosio + fruttosio","Due fruttosi","Galattosio + ribosio"],
+      answer:0, explain:"Lattosio = glucosio + galattosio." },
+
+    { q:"L’intolleranza al lattosio è dovuta principalmente a deficit di:",
+      options:["Pepsina","Lattasi","Lipasi","Transferrina"],
+      answer:1, explain:"Lattasi (orletto a spazzola) scinde lattosio in glucosio + galattosio." },
+
+    { q:"L’amido è composto principalmente da:",
+      options:["Amilosio e amilopectina","Cellulosa e pectina","Glicogeno e cellulosa","Ribosio e desossiribosio"],
+      answer:0, explain:"Amido = amilosio (lineare) + amilopectina (ramificata)." },
+
+    { q:"L’amilosio presenta soprattutto legami:",
+      options:["β(1→4)","α(1→4)","α(1→6) solo","β(1→6)"],
+      answer:1, explain:"Amilosio: catena lineare con legami α(1→4)." },
+
+    { q:"L’amilopectina presenta ramificazioni con legami:",
+      options:["α(1→6)","β(1→4)","β(1→6)","Solo α(1→4)"],
+      answer:0, explain:"Amilopectina: α(1→4) nei tratti lineari e α(1→6) nei punti di ramificazione." },
+
+    { q:"La gelatinizzazione dell’amido avviene tipicamente con:",
+      options:["Calore umido: i granuli assorbono acqua e si rigonfiano","Solo congelamento","Solo assenza di acqua","Solo pH estremo"],
+      answer:0, explain:"Con calore umido l’amido assorbe acqua e perde struttura ordinata: più digeribile." },
+
+    { q:"La retrogradazione dell’amido è:",
+      options:["Una nuova digestione enzimatica","Una ricristallizzazione/ri-organizzazione dopo raffreddamento","Un tipo di fermentazione","Un processo di ossidazione del glucosio"],
+      answer:1, explain:"Dopo raffreddamento l’amido può ri-organizzarsi e diventare meno disponibile (aumenta quota resistente)." },
+
+    { q:"Il glicogeno è:",
+      options:["Riserva energetica degli animali, soprattutto in fegato e muscolo","Riserva energetica delle piante","Una fibra indigeribile","Un disaccaride del latte"],
+      answer:0, explain:"Glicogeno = riserva animale (fegato/muscolo), molto ramificato." },
+
+    { q:"Il glicogeno è più ramificato rispetto all’amilopectina perché:",
+      options:["Ha più legami β","Ha ramificazioni α(1→6) più frequenti","È formato da fruttosio","È una proteina"],
+      answer:1, explain:"Glicogeno: ramificazioni α(1→6) molto frequenti → rilascio rapido di glucosio." },
+
+    { q:"Cellulosa e amido differiscono perché la cellulosa ha legami:",
+      options:["α(1→4)","α(1→6)","β(1→4)","β(1→6)"],
+      answer:2, explain:"Cellulosa: β(1→4) → noi non abbiamo cellulasi, quindi è fibra." },
+
+    { q:"La fibra alimentare è utile perché:",
+      options:["Aumenta sazietà e regolarità intestinale e può modulare glicemia/colesterolo","Viene digerita completamente nello stomaco","Aumenta sempre la glicemia rapidamente","È una vitamina liposolubile"],
+      answer:0, explain:"Fibra: trattiene acqua, aumenta volume feci, rallenta assorbimento, è fermentata dal microbiota (SCFA)." },
+
+    { q:"La digestione dei carboidrati inizia in bocca grazie a:",
+      options:["Pepsina","α-amilasi salivare","Lipasi pancreatica","Tripsina"],
+      answer:1, explain:"L’amilasi salivare inizia a rompere legami α(1→4) (poi è inattivata nello stomaco acido)." },
+
+    { q:"La principale digestione dell’amido avviene nel tenue grazie a:",
+      options:["α-amilasi pancreatica","Lattasi","Pepsina","Carbossipeptidasi"],
+      answer:0, explain:"α-amilasi pancreatica completa gran parte dell’idrolisi nel duodeno/digiuno." },
+
+    { q:"Glucosio e galattosio entrano nell’enterocita soprattutto tramite:",
+      options:["Diffusione semplice","Trasporto sodio-dipendente (tipo SGLT1)","Solo GLUT5","Solo pompaggio ATP diretto dello zucchero"],
+      answer:1, explain:"SGLT1: cotrasporto con Na+. Il gradiente Na+ è mantenuto dalla Na+/K+ ATPasi." },
+
+    { q:"Il fruttosio entra nell’enterocita soprattutto tramite:",
+      options:["GLUT5","SGLT1","Pompa Na/K","Albumina"],
+      answer:0, explain:"GLUT5 è un trasportatore facilitato specifico per fruttosio." },
+
+    { q:"L’uscita dei monosaccaridi verso il sangue (enterocita → sangue) avviene spesso tramite:",
+      options:["GLUT2","SGLT1","GLUT4","Emoglobina"],
+      answer:0, explain:"GLUT2 facilita l’uscita basolaterale di glucosio (e altri monosaccaridi) verso il sangue." },
+
+    { q:"GLUT4 è importante perché:",
+      options:["È il trasportatore del fruttosio nell’intestino","È insulino-dipendente e favorisce ingresso del glucosio in muscolo e tessuto adiposo","È presente solo nei globuli rossi","Trasporta aminoacidi"],
+      answer:1, explain:"GLUT4 è regolato dall’insulina: muscolo e tessuto adiposo aumentano uptake di glucosio." },
+
+    { q:"L’indice glicemico (IG) descrive:",
+      options:["Quanto sale la glicemia dopo una quantità standard di carboidrati rispetto al glucosio","Quante calorie ha un alimento","Quanta fibra c’è in un alimento","Quanto è dolce un alimento"],
+      answer:0, explain:"IG = confronto della risposta glicemica rispetto a uno standard (glucosio o pane bianco) a parità di carboidrati." },
+
+    { q:"Il carico glicemico (CG) tiene conto di:",
+      options:["Solo dell’IG","Solo delle calorie totali","IG e quantità di carboidrati nella porzione","Solo della fibra"],
+      answer:2, explain:"CG = (IG × grammi di carboidrati)/100: considera anche la porzione." },
+
+    { q:"I polioli (es. sorbitolo, xilitolo) sono spesso:",
+      options:["Dolcificanti intensivi senza effetti GI","Dolcificanti di massa: meno calorici dello zucchero, ma in eccesso possono dare effetto lassativo","Proteine","Acidi grassi essenziali"],
+      answer:1, explain:"Polioli: assorbimento incompleto → possibile effetto lassativo/meteorismo; non cariogeni in genere." },
+
+    { q:"La DGA (dose giornaliera accettabile) di un edulcorante indica:",
+      options:["La dose che provoca sicuramente tossicità","Una dose ritenuta sicura (mg/kg/die) per assunzione quotidiana lungo tempo","Le kcal per porzione","Il pH della sostanza"],
+      answer:1, explain:"DGA = quantità considerata sicura per uso quotidiano, con ampi margini di sicurezza." }
+  ],
+
+  /* =========================
+   *  LIPIDI (nuovo)
+   * ========================= */
+  "Biochimica – Lipidi": [
+    { q:"I lipidi si caratterizzano soprattutto per essere:",
+      options:["Molto solubili in acqua","Poco solubili in acqua e solubili in solventi non polari","Sempre polari","Sempre carichi negativamente"],
+      answer:1, explain:"Sono idrofobici: si estraggono con solventi non polari (etere, cloroformio...)." },
+
+    { q:"I trigliceridi (triacilgliceroli) sono formati da:",
+      options:["Glicerolo + 3 acidi grassi","Ribosio + basi azotate","Colesterolo + fosfato","2 amminoacidi + acqua"],
+      answer:0, explain:"Trigliceride = glicerolo esterificato con 3 acidi grassi." },
+
+    { q:"I lipidi forniscono circa:",
+      options:["4 kcal/g","7 kcal/g","9 kcal/g","2 kcal/g"],
+      answer:2, explain:"Lipidi ≈ 9 kcal per grammo (riserva energetica più concentrata)." },
+
+    { q:"Un acido grasso saturo:",
+      options:["Ha doppi legami","Non ha doppi legami","Ha sempre 3 doppi legami","Ha un gruppo amminico"],
+      answer:1, explain:"Saturi = nessun doppio legame (catena più lineare)." },
+
+    { q:"La configurazione cis di un doppio legame in un acido grasso tende a:",
+      options:["Rendere la catena più lineare","Rendere la catena “piegata” e aumentare la fluidità","Aumentare sempre il punto di fusione","Trasformare il lipide in proteina"],
+      answer:1, explain:"Cis = piega → minor impaccamento → maggiore fluidità, minore punto di fusione." },
+
+    { q:"Gli acidi grassi trans in genere:",
+      options:["Si comportano più come saturi (più lineari)","Sono sempre essenziali","Sono sempre prodotti solo dal fegato","Non esistono negli alimenti"],
+      answer:0, explain:"Trans = catena più lineare → proprietà simili ai saturi (più solidi)." },
+
+    { q:"Gli acidi grassi essenziali nell’uomo includono:",
+      options:["Oleico e palmitico","Linoleico (ω-6) e α-linolenico (ω-3)","Stearico e arachidico","Acetico e propionico"],
+      answer:1, explain:"Essenziali: linoleico (ω-6) e α-linolenico (ω-3) devono essere introdotti con la dieta." },
+
+    { q:"La sigla omega-3 significa che:",
+      options:["Il primo doppio legame è vicino al gruppo carbossilico","Il primo doppio legame è al terzo carbonio dalla coda metilica","Ci sono sempre 3 doppi legami","È un acido grasso saturo"],
+      answer:1, explain:"ω-3: primo doppio legame al 3° C dalla estremità metilica." },
+
+    { q:"I lipidi saponificabili sono quelli che:",
+      options:["Non contengono acidi grassi","Contengono acidi grassi e possono subire idrolisi formando saponi","Sono sempre steroidi","Non reagiscono mai con basi"],
+      answer:1, explain:"Saponificabili = contengono acidi grassi (trigliceridi, fosfolipidi, cere...)." },
+
+    { q:"Il colesterolo è importante perché:",
+      options:["È il principale polisaccaride di riserva","È precursore di acidi biliari, ormoni steroidei e vitamina D ed è componente di membrane","È un enzima digestivo","È una proteina plasmatiche"],
+      answer:1, explain:"Colesterolo: struttura membrane + precursore acidi biliari/ormoni steroidei/vitamina D." },
+
+    { q:"Durante la digestione lipidica, la bile serve soprattutto a:",
+      options:["Spezzare i legami peptidici","Emulsionare i grassi e formare micelle aumentando la superficie","Produrre enzimi pancreatici","Trasportare glucosio"],
+      answer:1, explain:"Sali biliari emulsificano: micelle → aumentano superficie di contatto per lipasi." },
+
+    { q:"La lipasi pancreatica lavora in modo più efficace grazie a:",
+      options:["Colipasi","Lattasi","Emoglobina","Transferrina"],
+      answer:0, explain:"La colipasi aiuta la lipasi ad ancorarsi alla superficie delle micelle e agire sui trigliceridi." },
+
+    { q:"Nel sangue, i lipidi idrofobici vengono trasportati soprattutto come:",
+      options:["Soluzione libera in plasma","Lipoproteine (chilomicroni, VLDL, LDL, HDL)","Aminoacidi","Glicogeno"],
+      answer:1, explain:"Lipoproteine: particelle con nucleo lipidico e superficie anfipatica (apoproteine + fosfolipidi)." },
+
+    { q:"I chilomicroni trasportano principalmente:",
+      options:["Grassi della dieta dall’intestino ai tessuti (via linfa → sangue)","Colesterolo dal fegato all’intestino","Glucosio ai muscoli","Proteine plasmatiche al fegato"],
+      answer:0, explain:"Chilomicroni = via esogena: lipidi alimentari dall’intestino ai tessuti." },
+
+    { q:"La VLDL è prodotta principalmente da:",
+      options:["Intestino","Fegato","Muscolo","Midollo osseo"],
+      answer:1, explain:"VLDL = via endogena: fegato esporta trigliceridi (e colesterolo) ai tessuti." },
+
+    { q:"Le LDL sono spesso chiamate “colesterolo cattivo” perché:",
+      options:["Trasportano O2","Trasportano molto colesterolo ai tessuti e se aumentano favoriscono accumulo/aterosclerosi","Sono sempre benefiche","Non esistono nel plasma"],
+      answer:1, explain:"LDL ricche di colesterolo: se elevate e ossidate favoriscono deposito nelle pareti vascolari (aterosclerosi)." },
+
+    { q:"Le HDL sono importanti perché:",
+      options:["Portano trigliceridi della dieta ai tessuti","Fanno trasporto inverso del colesterolo (dai tessuti al fegato)","Sono enzimi digestivi","Abbassano sempre la glicemia"],
+      answer:1, explain:"HDL raccolgono colesterolo dai tessuti e lo riportano al fegato (trasporto inverso)." },
+
+    { q:"Lipoprotein lipase (LPL) serve a:",
+      options:["Sintetizzare colesterolo","Idrolizzare trigliceridi nelle lipoproteine e liberare acidi grassi ai tessuti","Trasportare glucosio","Formare legami peptidici"],
+      answer:1, explain:"LPL (sull’endotelio) idrolizza TG di chilomicroni/VLDL → acidi grassi per i tessuti." },
+
+    { q:"La formula di Friedewald (stima LDL) è:",
+      options:["LDL = TC + HDL + TG","LDL = TC – HDL – TG/5 (stima comune)","LDL = HDL – TC","LDL = TG/HDL"],
+      answer:1, explain:"Stima classica: LDL-C ≈ TC − HDL-C − (TG/5) (in mg/dL; validità con TG non troppo alti)." },
+
+    { q:"La fluidità di membrana aumenta quando:",
+      options:["Aumentano acidi grassi saturi e catene lunghe","Aumentano acidi grassi insaturi (cis) e catene più corte","Si elimina tutta l’acqua","Aumenta la cellulosa"],
+      answer:1, explain:"Più insaturazioni cis e catene più corte → meno impaccamento → più fluidità." },
+
+    { q:"Il colesterolo nella membrana:",
+      options:["Rende sempre la membrana più permeabile","Modula la fluidità: stabilizza e riduce eccessiva fluidità/permeabilità in certe condizioni","Sostituisce i fosfolipidi","Serve solo come energia"],
+      answer:1, explain:"Colesterolo “tampona” fluidità: rende la membrana più stabile e ne modula permeabilità." },
+
+    { q:"I fitosteroli possono aiutare a ridurre colesterolo perché:",
+      options:["Aumentano l’assorbimento intestinale del colesterolo","Competono con il colesterolo nell’assorbimento intestinale","Sono enzimi che degradano LDL","Trasformano HDL in LDL"],
+      answer:1, explain:"Fitosteroli vegetali competono con il colesterolo e possono ridurne l’assorbimento." },
+
+    { q:"PCSK9 è rilevante perché:",
+      options:["È un acido grasso essenziale","Favorisce la degradazione del recettore LDL: inibirla aumenta la rimozione di LDL dal sangue","È un enzima della glicolisi","È il principale sale biliare"],
+      answer:1, explain:"PCSK9 riduce i recettori LDL disponibili: inibitori PCSK9 → più recettori → LDL più basse." }
+  ],
+
+  /* =========================
+   *  RIPASSO GENERALE (nuovo)
+   * ========================= */
+  "Biochimica – Ripasso generale": [
+    { q:"Quale macronutriente è la riserva energetica più “concentrata” (kcal/g)?",
+      options:["Proteine","Glucidi","Lipidi","Acqua"],
+      answer:2, explain:"Lipidi ≈ 9 kcal/g; proteine e glucidi ≈ 4 kcal/g." },
+
+    { q:"Quale coppia è corretta?",
+      options:["Proteine → nucleotidi","Glucidi → amminoacidi","Lipidi → acidi grassi (spesso)","Acidi nucleici → acidi grassi"],
+      answer:2, explain:"Molti lipidi contengono acidi grassi; le proteine sono fatte di amminoacidi; gli acidi nucleici di nucleotidi." },
+
+    { q:"Un esempio di proteina coniugata è:",
+      options:["Amilosio","Emoglobina (globina + eme)","Cellulosa","Trigliceride"],
+      answer:1, explain:"Hb è coniugata: parte proteica + gruppo eme." },
+
+    { q:"Un esempio di carboidrato strutturale indigeribile per l’uomo è:",
+      options:["Glicogeno","Amido","Cellulosa","Maltosio"],
+      answer:2, explain:"Cellulosa ha legami β(1→4) non digeribili (manca cellulasi)." },
+
+    { q:"Nel sangue, per trasportare grassi idrofobici servono spesso:",
+      options:["Lipoproteine","Ribosomi","Zimogeni","Disaccaridi"],
+      answer:0, explain:"Lipoproteine (chilomicroni/VLDL/LDL/HDL) trasportano lipidi nel plasma acquoso." }
   ]
 };
 
@@ -976,7 +1421,6 @@ function init(){
   shuffleState.textContent = prefs.shuffle ? "ON" : "OFF";
   btnShuffle.classList.toggle("toggle-on", prefs.shuffle);
 
-  // listeners
   subjectSelect.addEventListener("change", () => {
     prefs.lastSubject = subjectSelect.value;
     savePrefs(prefs);
