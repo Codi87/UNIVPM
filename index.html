@@ -3,156 +3,211 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>UniQuiz – Ripasso</title>
+  <title>UniQuiz UNIVPM Infermieristica Pesaro – Ripasso</title>
   <style>
     :root{
-      --bg:#0b1020;
-      --card:#121a33;
-      --card2:#0f1730;
-      --text:#e8ecff;
-      --muted:#aab3d6;
-      --accent:#7aa2ff;
-      --ok:#36d399;
-      --bad:#ff6b6b;
-      --border:rgba(255,255,255,.10);
-      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      /* Tema CHIARO (leggibile) + accento bordeaux UnivPM */
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --card2:#ffffff;
+      --text:#101828;
+      --muted:#667085;
+      --accent:#7c0012;        /* bordeaux */
+      --accent2:#b3001b;       /* bordeaux più vivo */
+      --ok:#027a48;
+      --bad:#b42318;
+      --border:#d0d5dd;
+      --shadow: 0 18px 60px rgba(16,24,40,.12);
       --radius: 18px;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 700px at 20% 10%, rgba(122,162,255,.18), transparent 60%),
-                  radial-gradient(900px 600px at 80% 40%, rgba(54,211,153,.10), transparent 60%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(124,0,18,.10), transparent 60%),
+        radial-gradient(900px 600px at 90% 30%, rgba(179,0,27,.08), transparent 55%),
+        var(--bg);
       color:var(--text);
       min-height:100vh;
     }
+
     header{
       position:sticky;
       top:0;
       backdrop-filter: blur(10px);
-      background: rgba(11,16,32,.55);
+      background: rgba(255,255,255,.85);
       border-bottom:1px solid var(--border);
       z-index:10;
     }
+
     .wrap{max-width:1050px;margin:0 auto;padding:16px 18px;}
     .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;}
     .brand{display:flex;align-items:center;gap:12px;min-width:0;}
+
+    /* LOGO */
     .brand img{
-      width:42px;height:42px;border-radius:12px;
+      height:42px;
+      width:auto;
+      border-radius:10px;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.06);
+      background:#fff;
+      padding:2px;
     }
+
     .brand h1{
       font-size:16px;line-height:1.15;margin:0;
       letter-spacing:.2px;
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
     .brand small{display:block;color:var(--muted);font-size:12px;margin-top:2px;}
+
     .pillrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
     .pill{
       padding:8px 10px;border-radius:999px;border:1px solid var(--border);
-      background:rgba(255,255,255,.05);
+      background:#fff;
       color:var(--muted);font-size:12px;
     }
+
     main .wrap{padding-top:18px;padding-bottom:40px;}
     .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;}
     @media (max-width: 900px){.grid{grid-template-columns:1fr;}}
+
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background:var(--card);
       border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
     }
-    .card .hd{padding:16px 16px 12px;border-bottom:1px solid var(--border);background:rgba(18,26,51,.45);}
+    .card .hd{
+      padding:16px 16px 12px;
+      border-bottom:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(124,0,18,.06), rgba(255,255,255,0));
+    }
     .card .hd h2{margin:0;font-size:15px;}
     .card .hd p{margin:6px 0 0;color:var(--muted);font-size:13px;}
     .card .bd{padding:16px;}
+
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
     .spacer{flex:1}
-    button, select, input[type="number"]{
-      font:inherit;
-    }
+
+    button, select, input[type="number"]{font:inherit}
+
     .btn{
       cursor:pointer;
       border-radius:14px;
       padding:10px 12px;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.06);
+      background:#fff;
       color:var(--text);
-      transition:.15s transform ease, .15s background ease, .15s border-color ease;
+      transition:.15s transform ease, .15s background ease, .15s border-color ease, .15s box-shadow ease;
       display:inline-flex;align-items:center;gap:8px;
       user-select:none;
     }
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18)}
+    .btn:hover{
+      transform:translateY(-1px);
+      background:#fbfbfd;
+      border-color:#c6cbd6;
+      box-shadow: 0 8px 24px rgba(16,24,40,.10);
+    }
     .btn:active{transform:translateY(0px)}
-    .btn.primary{background:rgba(122,162,255,.18);border-color:rgba(122,162,255,.45)}
-    .btn.primary:hover{background:rgba(122,162,255,.25)}
-    .btn.good{background:rgba(54,211,153,.16);border-color:rgba(54,211,153,.45)}
-    .btn.bad{background:rgba(255,107,107,.14);border-color:rgba(255,107,107,.40)}
+    .btn.primary{
+      background:rgba(124,0,18,.10);
+      border-color:rgba(124,0,18,.30);
+      color:#3a0a11;
+    }
+    .btn.primary:hover{background:rgba(124,0,18,.14)}
+    .btn.good{background:rgba(2,122,72,.10);border-color:rgba(2,122,72,.28)}
+    .btn.bad{background:rgba(180,35,24,.08);border-color:rgba(180,35,24,.22)}
     .btn.ghost{background:transparent}
+
     .field{
       display:flex;flex-direction:column;gap:6px;min-width:220px;
     }
     label{color:var(--muted);font-size:12px;}
     select, input[type="number"]{
       padding:10px 12px;border-radius:14px;border:1px solid var(--border);
-      background:rgba(0,0,0,.18);color:var(--text);
+      background:#fff;color:var(--text);
       outline:none;
     }
+    select:focus, input[type="number"]:focus{
+      border-color: rgba(124,0,18,.35);
+      box-shadow: 0 0 0 4px rgba(124,0,18,.10);
+    }
+
     .muted{color:var(--muted)}
     .hr{height:1px;background:var(--border);margin:14px 0}
+
     .prog{
-      height:10px;background:rgba(255,255,255,.06);
+      height:10px;background:#f2f4f7;
       border:1px solid var(--border);
       border-radius:999px;overflow:hidden;
     }
     .prog > div{
       height:100%;width:0%;
-      background:linear-gradient(90deg, rgba(122,162,255,.85), rgba(54,211,153,.75));
+      background:linear-gradient(90deg, rgba(124,0,18,.85), rgba(179,0,27,.70));
       transition:width .2s ease;
     }
-    .qbox{padding:16px;border-radius:16px;background:rgba(0,0,0,.18);border:1px solid var(--border)}
+
+    .qbox{
+      padding:16px;border-radius:16px;
+      background:#fff;border:1px solid var(--border)
+    }
+
     .qtitle{font-size:16px;margin:0 0 10px}
     .opts{display:grid;gap:10px;margin-top:10px}
+
     .opt{
       text-align:left;
       padding:12px 12px;border-radius:14px;border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
+      background:#ffffff;
       cursor:pointer;
       transition:.12s ease;
+      color:var(--text);
     }
-    .opt:hover{background:rgba(255,255,255,.07);transform:translateY(-1px)}
-    .opt small{color:var(--muted)}
-    .opt.correct{border-color:rgba(54,211,153,.6);background:rgba(54,211,153,.12)}
-    .opt.wrong{border-color:rgba(255,107,107,.6);background:rgba(255,107,107,.10)}
-    .kbd{font-size:11px;color:var(--muted);border:1px solid var(--border);padding:2px 6px;border-radius:8px;background:rgba(0,0,0,.22)}
+    .opt:hover{
+      background:#f9fafb;
+      transform:translateY(-1px);
+      border-color:#c6cbd6;
+    }
+
+    .opt.correct{border-color:rgba(2,122,72,.55);background:rgba(2,122,72,.08)}
+    .opt.wrong{border-color:rgba(180,35,24,.55);background:rgba(180,35,24,.06)}
+
+    .kbd{
+      font-size:11px;color:var(--muted);
+      border:1px solid var(--border);
+      padding:2px 6px;border-radius:8px;background:#f2f4f7
+    }
+
     .hint{font-size:12px;color:var(--muted);margin-top:10px}
+
     .explain{
       margin-top:12px;
       padding:12px;
       border-radius:14px;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-      color:var(--muted);
+      background:#f9fafb;
+      color:#344054;
       font-size:13px;
       white-space:pre-wrap;
     }
-    .scorebig{
-      font-size:36px;margin:0;letter-spacing:-1px;
-    }
+
+    .scorebig{font-size:36px;margin:0;letter-spacing:-1px;}
+
     .tag{
       display:inline-flex;align-items:center;gap:6px;
       padding:7px 10px;border-radius:999px;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
+      background:#fff;
       color:var(--muted);
       font-size:12px;
     }
+
     footer{color:var(--muted);font-size:12px;text-align:center;padding:18px 0}
-    a{color:var(--accent)}
+    a{color:var(--accent2)}
   </style>
 </head>
 
@@ -161,18 +216,11 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <!-- ✅ CAMBIA QUI IL LOGO:
-             1) metti "logo.png" nella stessa cartella di index.html
-             2) cambia src="logo.png"
-        -->
-        <img id="logo" alt="Logo" src="data:image/svg+xml;utf8,
-          <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'>
-            <rect width='64' height='64' rx='14' fill='%23121a33'/>
-            <path d='M16 44V20h18c8 0 14 6 14 12s-6 12-14 12H16z' fill='%237aa2ff' opacity='.85'/>
-            <path d='M20 40V24h14c5 0 10 4 10 8s-5 8-10 8H20z' fill='%2336d399' opacity='.8'/>
-          </svg>"/>
+        <!-- ✅ Logo UnivPM: salva l'immagine come "univpm-logo.png" nella stessa cartella di index.html -->
+        <img id="logo" alt="Università Politecnica delle Marche" src="univpm-logo.png"
+             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%2764%27 height=%2764%27><rect width=%2764%27 height=%2764%27 rx=%2712%27 fill=%27%23ffffff%27 stroke=%27%23d0d5dd%27/><text x=%2750%25%27 y=%2752%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-size=%2712%27 fill=%27%23667085%27>LOGO</text></svg>';">
         <div style="min-width:0">
-          <h1>UniQuiz <small>Web-app per ripasso universitario</small></h1>
+          <h1>UniQuiz UNIVPM Infermieristica Pesaro <small>Studio universitario • quiz a scelta multipla</small></h1>
         </div>
       </div>
       <div class="pillrow">
@@ -188,7 +236,7 @@
   <div class="wrap">
     <div class="grid">
 
-      <!-- SINISTRA: flusso quiz -->
+      <!-- SINISTRA -->
       <section class="card" id="cardMain">
         <div class="hd">
           <h2 id="mainTitle">Seleziona una materia</h2>
@@ -222,23 +270,7 @@
               <button class="btn ghost" id="btnShuffle">🔀 Mescola domande: <span id="shuffleState">ON</span></button>
               <div class="spacer"></div>
               <span class="muted" style="font-size:12px">Scorciatoie: <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> <span class="kbd">4</span> • <span class="kbd">Invio</span></span>
-            </div>
 
-            <div class="hr"></div>
-
-            <div class="qbox">
-              <p class="muted" style="margin:0 0 8px">Suggerimento</p>
-              <div class="row" style="align-items:flex-start">
-                <div style="flex:1">
-                  <p style="margin:0">
-                    Vuoi aggiungere altre materie o domande?
-                    Cerca nel codice <span class="kbd">QUESTION_BANK</span> e incolla nuove domande nello stesso formato.
-                  </p>
-                  <p class="hint" style="margin:10px 0 0">
-                    Quando mi mandi l’elenco di domande “ufficiali” (se hai un file con Q/A), le importo identiche.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -290,26 +322,14 @@
         </div>
       </section>
 
-      <!-- DESTRA: info + stats -->
+      <!-- DESTRA -->
       <aside class="card">
         <div class="hd">
           <h2>Dashboard</h2>
           <p>Statistiche e note rapide.</p>
         </div>
         <div class="bd">
-          <div class="qbox">
-            <p style="margin:0 0 8px"><b>Come usarla</b></p>
-            <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:13px; line-height:1.55">
-              <li>Seleziona la materia → Avvia</li>
-              <li><b>Allenamento:</b> feedback e spiegazione subito</li>
-              <li><b>Esame:</b> vedi tutto alla fine (con review)</li>
-              <li>Scorciatoie: <span class="kbd">1-4</span> per rispondere</li>
-            </ul>
-          </div>
-
-          <div class="hr"></div>
-
-          <div class="qbox">
+           <div class="qbox">
             <p style="margin:0 0 10px"><b>Statistiche locali</b></p>
             <div class="row" style="gap:10px">
               <div class="tag">Quiz completati: <span id="statRuns">0</span></div>
@@ -327,8 +347,7 @@
           <div class="qbox">
             <p style="margin:0 0 8px"><b>Note</b></p>
             <p class="muted" style="margin:0; font-size:13px; line-height:1.55">
-              Se vuoi che la web-app usi <i>esattamente</i> “le domande presenti nel file”, serve un file che contenga
-              davvero domande/risposte (tipo test). Questo PDF è discorsivo: qui le domande sono state generate dal contenuto.
+              I Quiz e domande possono variare a seconda degli anni di studio e dalla facoltà, quiz creato solo a scopo formativo.
             </p>
           </div>
         </div>
@@ -337,7 +356,7 @@
     </div>
 
     <footer class="wrap">
-      <span>UniQuiz • file singolo • offline • pronto da copiare</span>
+      <span>UniQuiz UNIVPM Infermieristica Pesaro • file singolo • offline • pronto da copiare</span>
     </footer>
   </div>
 </main>
@@ -347,13 +366,6 @@
  * ===========================
  *   QUESTION BANK (editabile)
  * ===========================
- * Formato:
- *  {
- *    "Materia": [
- *      { q:"testo", options:["A","B","C","D"], answer: 1, explain:"..." },
- *      ...
- *    ]
- *  }
  */
 const QUESTION_BANK = {
   "Biochimica – Emoglobina e Mioglobina": [
@@ -485,7 +497,7 @@ const statAcc = $("#statAcc");
 const statGood = $("#statGood");
 const statTotal = $("#statTotal");
 
-const STORAGE_KEY = "uniquiz_v1";
+const STORAGE_KEY = "uniquiz_v2_light";
 const defaultPrefs = {
   lastSubject: Object.keys(QUESTION_BANK)[0] || "",
   shuffle: true,
@@ -555,7 +567,7 @@ function buildQuiz(subject, n, mode, shuffleOn){
     index: 0,
     score: 0,
     answered: false,
-    answers: [] // for review: {qid, chosen, correct, isCorrect}
+    answers: []
   };
 }
 
@@ -616,7 +628,6 @@ function renderQuestion(){
   });
 
   setHeaderPills({subject, mode, count: items.length});
-  $("#pillSubject").textContent = "Materia: " + subject;
 }
 
 function choose(choiceIndex){
@@ -629,7 +640,6 @@ function choose(choiceIndex){
 
   quiz.answered = true;
 
-  // record for review
   quiz.answers.push({
     q: current.q,
     options: current.options,
@@ -639,10 +649,8 @@ function choose(choiceIndex){
     explain: current.explain || ""
   });
 
-  // scoring
   if(isCorrect) quiz.score += 1;
 
-  // UI feedback
   const buttons = [...optList.querySelectorAll(".opt")];
   if(mode === "training"){
     buttons.forEach((b, i) => {
@@ -652,10 +660,10 @@ function choose(choiceIndex){
     });
 
     explainBox.style.display = "";
-    explainBox.textContent = (isCorrect ? "✅ Corretto.\n\n" : "❌ Sbagliato.\n\n") +
+    explainBox.textContent =
+      (isCorrect ? "✅ Corretto.\n\n" : "❌ Sbagliato.\n\n") +
       "Spiegazione: " + (current.explain || "—");
   } else {
-    // exam: no immediate reveal
     buttons.forEach((b) => b.disabled = true);
   }
 
@@ -679,22 +687,18 @@ function next(){
 }
 
 function finalize(){
-  // update stats
   prefs.stats.runs += 1;
   prefs.stats.good += quiz.score;
   prefs.stats.total += quiz.items.length;
   savePrefs(prefs);
   refreshStatsUI();
 
-  // results screen
   const pct = Math.round((quiz.score/quiz.items.length)*100);
   finalScore.textContent = `${quiz.score}/${quiz.items.length} (${pct}%)`;
   finalMeta.textContent = `${quiz.subject} • Modalità: ${quiz.mode === "exam" ? "Esame" : "Allenamento"} • Mescola: ${quiz.shuffleOn ? "ON" : "OFF"}`;
 
-  // progress bar to 100
   progBar.style.width = "100%";
 
-  // review (solo per "Esame" o se vuoi comunque mostrarla)
   if(quiz.mode === "exam"){
     reviewBox.style.display = "";
     reviewBox.textContent = buildReviewText(quiz.answers);
@@ -726,7 +730,6 @@ function buildReviewText(answers){
  *           INIT
  * =========================== */
 function init(){
-  // subjects
   subjectSelect.innerHTML = "";
   Object.keys(QUESTION_BANK).forEach(s => {
     const o = document.createElement("option");
@@ -734,7 +737,6 @@ function init(){
     subjectSelect.appendChild(o);
   });
 
-  // restore prefs
   if(prefs.lastSubject && QUESTION_BANK[prefs.lastSubject]){
     subjectSelect.value = prefs.lastSubject;
   }
@@ -744,7 +746,6 @@ function init(){
   shuffleState.textContent = prefs.shuffle ? "ON" : "OFF";
   setHeaderPills({subject: subjectSelect.value, mode: modeSelect.value, count: "—"});
 
-  // setup change listeners
   subjectSelect.addEventListener("change", () => {
     prefs.lastSubject = subjectSelect.value;
     savePrefs(prefs);
@@ -773,7 +774,6 @@ function init(){
     const totalAvail = (QUESTION_BANK[subject] || []).length;
     const nn = clamp(n, 1, Math.max(1, totalAvail));
 
-    // save prefs
     prefs.lastSubject = subject;
     prefs.mode = mode;
     prefs.numQuestions = nn;
@@ -803,10 +803,8 @@ function init(){
     alert("Statistiche resettate.");
   });
 
-  // keyboard shortcuts
   document.addEventListener("keydown", (e) => {
     if(screenQuiz.style.display === "none") return;
-
     if(["1","2","3","4"].includes(e.key)){
       const idx = parseInt(e.key, 10) - 1;
       const btns = [...optList.querySelectorAll(".opt")];
