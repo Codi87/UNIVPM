@@ -4,18 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>UniQuiz UNIVPM Infermieristica Pesaro – Ripasso</title>
+  <meta name="description" content="Web app offline per quiz a scelta multipla (studio universitario) – UniQuiz UNIVPM Infermieristica Pesaro." />
+
   <style>
     :root{
-      /* Tema CHIARO (leggibile) + accento bordeaux UnivPM */
       --bg:#f6f7fb;
       --card:#ffffff;
-      --card2:#ffffff;
       --text:#101828;
       --muted:#667085;
-      --accent:#7c0012;        /* bordeaux */
-      --accent2:#b3001b;       /* bordeaux più vivo */
+
+      --accent:#7c0012;   /* bordeaux */
+      --accent2:#b3001b;
+
       --ok:#027a48;
       --bad:#b42318;
+
       --border:#d0d5dd;
       --shadow: 0 18px 60px rgba(16,24,40,.12);
       --radius: 18px;
@@ -37,19 +40,20 @@
       position:sticky;
       top:0;
       backdrop-filter: blur(10px);
-      background: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.88);
       border-bottom:1px solid var(--border);
       z-index:10;
     }
 
     .wrap{max-width:1050px;margin:0 auto;padding:16px 18px;}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;}
-    .brand{display:flex;align-items:center;gap:12px;min-width:0;}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0;flex:1;}
 
     /* LOGO */
     .brand img{
-      height:42px;
+      height:44px;
       width:auto;
+      object-fit:contain;
       border-radius:10px;
       border:1px solid var(--border);
       background:#fff;
@@ -57,17 +61,19 @@
     }
 
     .brand h1{
-      font-size:16px;line-height:1.15;margin:0;
+      font-size:16px;
+      line-height:1.15;
+      margin:0;
       letter-spacing:.2px;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      /* meglio wrap su mobile */
+      white-space:normal;
     }
     .brand small{display:block;color:var(--muted);font-size:12px;margin-top:2px;}
 
     .pillrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
     .pill{
       padding:8px 10px;border-radius:999px;border:1px solid var(--border);
-      background:#fff;
-      color:var(--muted);font-size:12px;
+      background:#fff;color:var(--muted);font-size:12px;
     }
 
     main .wrap{padding-top:18px;padding-bottom:40px;}
@@ -113,6 +119,7 @@
       box-shadow: 0 8px 24px rgba(16,24,40,.10);
     }
     .btn:active{transform:translateY(0px)}
+
     .btn.primary{
       background:rgba(124,0,18,.10);
       border-color:rgba(124,0,18,.30);
@@ -122,6 +129,13 @@
     .btn.good{background:rgba(2,122,72,.10);border-color:rgba(2,122,72,.28)}
     .btn.bad{background:rgba(180,35,24,.08);border-color:rgba(180,35,24,.22)}
     .btn.ghost{background:transparent}
+
+    /* Toggle (Mescola ON) */
+    .btn.toggle-on{
+      background:rgba(124,0,18,.10);
+      border-color:rgba(124,0,18,.30);
+      color:#3a0a11;
+    }
 
     .field{
       display:flex;flex-direction:column;gap:6px;min-width:220px;
@@ -216,17 +230,21 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <!-- ✅ Logo UnivPM: salva l'immagine come "univpm-logo.png" nella stessa cartella di index.html -->
-        <img id="logo" alt="Università Politecnica delle Marche" src="univpm-logo.png"
-             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%2764%27 height=%2764%27><rect width=%2764%27 height=%2764%27 rx=%2712%27 fill=%27%23ffffff%27 stroke=%27%23d0d5dd%27/><text x=%2750%25%27 y=%2752%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-size=%2712%27 fill=%27%23667085%27>LOGO</text></svg>';">
+        <img id="logo" alt="Università Politecnica delle Marche"
+             src="univpm-logo.png"
+             onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%27260%27 height=%2780%27><rect width=%27260%27 height=%2780%27 rx=%2712%27 fill=%27%23ffffff%27 stroke=%27%23d0d5dd%27/><text x=%2750%25%27 y=%2752%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-size=%2714%27 fill=%27%23667085%27>UNIVPM LOGO</text></svg>';">
+
         <div style="min-width:0">
-          <h1>UniQuiz UNIVPM Infermieristica Pesaro <small>Studio universitario • quiz a scelta multipla</small></h1>
+          <h1>UniQuiz UNIVPM Infermieristica Pesaro
+            <small>Studio universitario • quiz a scelta multipla</small>
+          </h1>
         </div>
       </div>
+
       <div class="pillrow">
         <div class="pill" id="pillSubject">Materia: —</div>
         <div class="pill" id="pillMode">Modalità: Allenamento</div>
-        <div class="pill" id="pillCount">Domande: —</div>
+        <div class="pill" id="pillCount">Disponibili: —</div>
       </div>
     </div>
   </div>
@@ -242,6 +260,7 @@
           <h2 id="mainTitle">Seleziona una materia</h2>
           <p id="mainSubtitle">Scegli la materia, imposta quante domande fare e avvia il quiz.</p>
         </div>
+
         <div class="bd">
           <!-- setup -->
           <div id="screenSetup">
@@ -267,10 +286,25 @@
 
             <div class="row" style="margin-top:14px">
               <button class="btn primary" id="btnStart">▶ Avvia</button>
-              <button class="btn ghost" id="btnShuffle">🔀 Mescola domande: <span id="shuffleState">ON</span></button>
-              <div class="spacer"></div>
-              <span class="muted" style="font-size:12px">Scorciatoie: <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> <span class="kbd">4</span> • <span class="kbd">Invio</span></span>
+              <button class="btn ghost" id="btnShuffle">
+                🔀 Mescola domande: <span id="shuffleState">ON</span>
+              </button>
 
+              <div class="spacer"></div>
+              <span class="muted" style="font-size:12px">
+                Scorciatoie:
+                <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> <span class="kbd">4</span>
+                • <span class="kbd">Invio</span> • <span class="kbd">Esc</span>
+              </span>
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="qbox">
+              <p class="muted" style="margin:0 0 6px"><b>Nota</b></p>
+              <p class="muted" style="margin:0; font-size:13px; line-height:1.55">
+                Quiz creato a scopo formativo: le domande possono variare in base ad anno di corso e programma del docente.
+              </p>
             </div>
           </div>
 
@@ -329,7 +363,7 @@
           <p>Statistiche e note rapide.</p>
         </div>
         <div class="bd">
-           <div class="qbox">
+          <div class="qbox">
             <p style="margin:0 0 10px"><b>Statistiche locali</b></p>
             <div class="row" style="gap:10px">
               <div class="tag">Quiz completati: <span id="statRuns">0</span></div>
@@ -345,10 +379,12 @@
           <div class="hr"></div>
 
           <div class="qbox">
-            <p style="margin:0 0 8px"><b>Note</b></p>
-            <p class="muted" style="margin:0; font-size:13px; line-height:1.55">
-              I Quiz e domande possono variare a seconda degli anni di studio e dalla facoltà, quiz creato solo a scopo formativo.
-            </p>
+            <p style="margin:0 0 8px"><b>Come usarla</b></p>
+            <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:13px; line-height:1.55">
+              <li><b>Allenamento</b>: vedi subito correzione e spiegazione</li>
+              <li><b>Esame</b>: correzione alla fine con review</li>
+              <li>Puoi scegliere quante domande fare (max = disponibili)</li>
+            </ul>
           </div>
         </div>
       </aside>
@@ -366,87 +402,256 @@
  * ===========================
  *   QUESTION BANK (editabile)
  * ===========================
+ * answer = indice corretto (0..3)
  */
 const QUESTION_BANK = {
   "Biochimica – Emoglobina e Mioglobina": [
+    // Base
     { q:"Perché Hb e Mb sono necessarie negli organismi aerobici?",
       options:["L’O2 è troppo reattivo per stare nei tessuti","L’O2 è poco solubile in acqua/plasma","L’O2 è prodotto dai mitocondri","Il sangue non circola nei mammiferi"],
-      answer:1, explain:"L’ossigeno ha bassa solubilità: servono proteine per trasportarlo/immagazzinarlo in modo efficiente." },
+      answer:1, explain:"L’O2 è poco solubile in acqua/plasma: servono proteine che lo leghino in modo controllato." },
+
     { q:"Dove si trova principalmente la mioglobina (Mb)?",
       options:["Plasma","Eritrociti","Muscolo scheletrico e miocardio","Fegato"],
-      answer:2, explain:"La mioglobina è tipica del tessuto muscolare, dove facilita riserva/diffusione di O2." },
+      answer:2, explain:"La Mb è tipica del muscolo scheletrico e cardiaco." },
+
     { q:"Funzione principale della mioglobina:",
       options:["Trasporto di O2 dai polmoni ai tessuti","Riserva/“navetta” di O2 nel muscolo verso i mitocondri","Trasporto CO2 ai polmoni","Coagulazione"],
-      answer:1, explain:"Mb è un serbatoio locale e aiuta il passaggio di O2 ai mitocondri quando il muscolo lavora." },
+      answer:1, explain:"Mb fa da riserva e facilita il passaggio di O2 nel citoplasma verso i mitocondri." },
+
     { q:"Dove si trova l’emoglobina (Hb)?",
       options:["Nei globuli rossi","Nel plasma","Nei mitocondri","Nel liquido interstiziale"],
-      answer:0, explain:"Hb è concentrata negli eritrociti, specializzati nel trasporto di gas." },
-    { q:"Quante subunità ha l’emoglobina adulta HbA?",
-      options:["1","2","3","4"],
-      answer:3, explain:"HbA è un tetramero (4 subunità)." },
+      answer:0, explain:"Hb è contenuta negli eritrociti." },
+
+    { q:"Oltre al trasporto di O2, Hb:",
+      options:["Non ha altre funzioni","Trasporta parte della CO2 e contribuisce al pH (tampone)","Serve solo nel muscolo","È un enzima digestivo"],
+      answer:1, explain:"Hb riporta parte della CO2 e aiuta anche la regolazione del pH grazie alla capacità tampone." },
+
+    // Strutture
+    { q:"La mioglobina è composta da:",
+      options:["4 subunità (quaternaria)","1 catena (terziaria)","2 catene α e 2 γ","Solo eme senza globina"],
+      answer:1, explain:"Mb è monomerica: una catena polipeptidica, struttura terziaria." },
+
+    { q:"L’emoglobina adulta (HbA) è un:",
+      options:["Monomero","Dimero","Tetramero","Polimero indefinito"],
+      answer:2, explain:"Hb è un tetramero di globine." },
+
     { q:"Composizione di HbA:",
       options:["α2γ2","α2β2","β4","α4"],
-      answer:1, explain:"HbA dell’adulto è formata da due catene α e due β." },
+      answer:1, explain:"HbA dell’adulto è α2β2." },
+
     { q:"Quante molecole di O2 può legare una molecola di Hb?",
       options:["1","2","3","4"],
-      answer:3, explain:"Ogni subunità ha un eme → 4 eme totali → fino a 4 O2." },
+      answer:3, explain:"Ogni subunità ha un eme: 4 eme totali → fino a 4 O2." },
+
+    { q:"Hb e Mb sono proteine coniugate perché:",
+      options:["Hanno solo amminoacidi idrofobici","Hanno una parte proteica (globina) e una parte non proteica (eme)","Sono legate a zuccheri","Sono legate a DNA"],
+      answer:1, explain:"Sono formate da globina + gruppo eme indispensabile al legame dell’ossigeno." },
+
+    // Eme e istidine
     { q:"Il gruppo eme è:",
-      options:["Solo una proteina globulare","Un anello porfirinico con ferro centrale","Un carboidrato legato a globina","Un fosfolipide di membrana"],
-      answer:1, explain:"L’eme è una porfirina con Fe2+ al centro, sito di legame per O2." },
-    { q:"Stato del ferro che lega efficacemente O2:",
-      options:["Fe3+","Fe2+","Fe0","Fe+"],
-      answer:1, explain:"Il legame reversibile dell’ossigeno avviene con Fe2+ (ferroso)." },
+      options:["Un carboidrato","Un anello porfirinico con ferro centrale","Un fosfolipide","Un peptide segnale"],
+      answer:1, explain:"Eme = porfirina (protoporfirina) + Fe al centro." },
+
+    { q:"Il ferro dell’eme può fare fino a quanti legami di coordinazione?",
+      options:["2","4","6","8"],
+      answer:2, explain:"Il Fe può coordinare fino a 6 legami (4 sull’anello + 2 “verticali”)." },
+
+    { q:"L’istidina prossimale:",
+      options:["Lega direttamente il ferro ancorando l’eme alla globina","È il sito di legame dell’ossigeno","Serve solo a legare CO2","Non ha ruolo"],
+      answer:0, explain:"Una coordinazione “verticale” lega il Fe all’istidina prossimale (ancoraggio alla proteina)." },
+
+    { q:"L’istidina distale:",
+      options:["Lega direttamente il ferro","Non lega il ferro ma orienta l’O2 e stabilizza il legame reversibile","Serve per ossidare Fe2+ a Fe3+","Blocca la cooperatività"],
+      answer:1, explain:"Non coordina il Fe: aiuta a orientare O2 e rende il legame stabile ma reversibile." },
+
+    { q:"Perché la globina crea una tasca idrofobica attorno all’eme?",
+      options:["Per aumentare la solubilità dell’eme in acqua","Per proteggere l’eme da reazioni indesiderate e ossidazioni","Per far legare meglio CO2","Per eliminare l’ossigeno"],
+      answer:1, explain:"L’eme libero reagirebbe più facilmente: la tasca lo protegge." },
+
+    // Fe2+/Fe3+ e CO
+    { q:"Per legare bene l’ossigeno il ferro deve essere:",
+      options:["Fe3+","Fe2+","Fe0","Fe+ (monovalente)"],
+      answer:1, explain:"Il legame efficace e reversibile con O2 avviene con Fe2+ (ferroso)." },
+
     { q:"Se il ferro passa a Fe3+ si forma:",
-      options:["Carbossiemoglobina","Metaemoglobina","Ossi-emoglobina","HbF"],
-      answer:1, explain:"Fe3+ (ferrico) non lega bene O2 → metaemoglobina." },
-    { q:"Perché il CO è pericoloso?",
-      options:["Riduce la produzione di Hb","Si lega all’eme con affinità molto maggiore dell’O2","Trasforma Hb in Mb","Aumenta la pO2"],
-      answer:1, explain:"Il CO compete con O2 e si lega fortissimo all’eme, riducendo trasporto e rilascio di O2." },
+      options:["Ossi-emoglobina","Metaemoglobina","Carbossiemoglobina","HbF"],
+      answer:1, explain:"Fe3+ → metaemoglobina, che non lega bene l’O2." },
+
+    { q:"Perché il monossido di carbonio (CO) è pericoloso?",
+      options:["Perché aumenta la pO2","Perché si lega all’eme con affinità molto maggiore di O2","Perché rompe i globuli rossi sempre","Perché trasforma Hb in Mb"],
+      answer:1, explain:"Il CO occupa il sito dell’eme e impedisce il legame dell’ossigeno." },
+
+    // Curve e cooperatività
     { q:"Curva di saturazione della mioglobina:",
-      options:["Sigmoide","Iperbolica","Lineare","A campana"],
-      answer:1, explain:"Mb è monomerica → non cooperativa → curva iperbolica." },
+      options:["Sigmoide","Iperbolica","Lineare","A gradini"],
+      answer:1, explain:"Mb è monomerica e non cooperativa → curva iperbolica." },
+
     { q:"Curva di saturazione dell’emoglobina:",
-      options:["Iperbolica","Sigmoide","Lineare","A gradini"],
-      answer:1, explain:"Hb è tetramerica e cooperativa → curva sigmoide." },
-    { q:"La cooperatività dell’Hb deriva soprattutto da:",
-      options:["Presenza di un solo eme","Comunicazione tra subunità (struttura quaternaria)","Assenza di globina","Ferro Fe3+"],
-      answer:1, explain:"Il legame di O2 induce cambi conformazionali tra subunità (T↔R), aumentando l’affinità progressivamente." },
-    { q:"Quale fattore sposta la curva dell’Hb a destra favorendo il rilascio di O2 ai tessuti?",
-      options:["pH più alto","CO2/H+ aumentati (pH più basso)","2,3-BPG diminuito","Temperatura diminuita"],
-      answer:1, explain:"H+ e CO2 (effetto Bohr), e anche temperatura/2,3-BPG, riducono affinità → più rilascio ai tessuti." }
+      options:["Iperbolica","Sigmoide","Lineare","A campana"],
+      answer:1, explain:"Hb è cooperativa → curva sigmoide." },
+
+    { q:"La cooperatività dell’Hb dipende soprattutto da:",
+      options:["Un solo eme","Comunicazione tra subunità (struttura quaternaria)","Fe3+","Assenza di globina"],
+      answer:1, explain:"Le subunità “comunicano”: legare O2 facilita i legami successivi." },
+
+    { q:"Lo stato T dell’emoglobina è:",
+      options:["Alta affinità per O2","Bassa affinità per O2","Forma della mioglobina","Legame irreversibile con O2"],
+      answer:1, explain:"Stato T (“teso”) = bassa affinità; stato R (“rilassato”) = alta affinità." },
+
+    // Allosteria: Bohr, CO2, 2,3-BPG, temperatura
+    { q:"Effetto Bohr (idea corretta):",
+      options:["pH più alto → rilascio O2 maggiore","pH più basso → rilascio O2 maggiore","CO2 diminuisce → rilascio O2 maggiore","2,3-BPG diminuisce → rilascio O2 maggiore"],
+      answer:1, explain:"Nei tessuti attivi pH scende (H+↑) → Hb riduce affinità e scarica più O2." },
+
+    { q:"Aumento di CO2 nei tessuti:",
+      options:["Favorisce il legame di O2","Favorisce il rilascio di O2","Non cambia nulla","Blocca la cooperatività"],
+      answer:1, explain:"CO2 contribuisce (direttamente e via H+) a stabilizzare la forma deossigenata e favorisce lo scarico di O2." },
+
+    { q:"Il 2,3-BPG:",
+      options:["Si lega meglio all’Hb ossigenata e aumenta l’affinità","Si lega meglio all’Hb deossigenata e favorisce il rilascio di O2","È prodotto nel fegato e blocca Hb","Non esiste nei globuli rossi"],
+      answer:1, explain:"2,3-BPG (nei GR) stabilizza Hb deossigenata → più rilascio di O2 ai tessuti." },
+
+    { q:"Aumento di temperatura nei tessuti attivi:",
+      options:["Aumenta affinità Hb per O2","Favorisce dissociazione Hb–O2 e quindi rilascio","Non ha effetto","Trasforma Fe2+ in Fe3+"],
+      answer:1, explain:"Temperatura↑ favorisce la dissociazione Hb–O2: aiuta lo “scarico” di O2." },
+
+    { q:"Adattamento alle alte quote (risposta tipica):",
+      options:["Diminuisce Hb e diminuisce 2,3-BPG","Aumenta Hb e aumenta 2,3-BPG","Aumenta Mb nel sangue","Diminuisce la cooperatività"],
+      answer:1, explain:"In alta quota pO2 bassa → si aumenta produzione Hb e 2,3-BPG per favorire consegna di O2 ai tessuti." },
+
+    // Varianti
+    { q:"Hb fetale (HbF) è composta da:",
+      options:["α2β2","α2γ2","β4","α4"],
+      answer:1, explain:"HbF = α2γ2; dopo nascita γ → β." },
+
+    { q:"Emoglobinopatie vs talassemie:",
+      options:["Entrambe solo quantitative","Emoglobinopatie: mutazioni qualitative; Talassemie: mutazioni quantitative","Emoglobinopatie: carenza di ferro; Talassemie: eccesso di ferro","Non c’è differenza"],
+      answer:1, explain:"Emoglobinopatie cambiano la sequenza; talassemie cambiano la quantità di catene prodotte." },
+
+    { q:"HbS (anemia falciforme): qual è la sostituzione classica?",
+      options:["Glu → Val nella catena β (posizione 6)","Val → Glu nella catena α","Gly → Ala nella catena γ","His → Lys nel gruppo eme"],
+      answer:0, explain:"HbS: sostituzione Glu→Val nella catena β (pos. 6), con ridotta solubilità e falcizzazione." },
+
+    { q:"Nelle talassemie il problema principale è:",
+      options:["Il ferro non lega O2","La quantità di globina prodotta (α o β) è ridotta/assente","Hb diventa Mb","Si produce solo HbF"],
+      answer:1, explain:"Talassemie = difetto quantitativo di sintesi delle catene globiniche." },
+
+    { q:"HbA1c è utile perché:",
+      options:["Indica solo la glicemia del momento","Riflette la media del controllo glicemico nelle 4–8 settimane precedenti","Misura la pO2 nel sangue","Serve per diagnosticare anemia falciforme"],
+      answer:1, explain:"HbA1c deriva da glicazione non enzimatica: riflette la media glicemica delle settimane precedenti." }
   ],
 
   "Biochimica – Proteine plasmatiche": [
     { q:"Le proteine plasmatiche sono:",
       options:["Proteine dentro i globuli rossi","Proteine disciolte nella parte liquida del sangue","Proteine solo del siero","Proteine solo del midollo osseo"],
-      answer:1, explain:"Sono proteine presenti nel plasma, la frazione liquida del sangue." },
-    { q:"La quota di proteine nel plasma è circa:",
+      answer:1, explain:"Sono proteine disciolte nel plasma." },
+
+    { q:"Nel plasma le proteine rappresentano circa:",
       options:["1–2%","3–4%","6–8%","12–15%"],
-      answer:2, explain:"Il plasma contiene tipicamente ~6–8% di proteine totali." },
-    { q:"Le 3 grandi famiglie principali di proteine plasmatiche sono:",
+      answer:2, explain:"Nel documento: circa 6–8% del volume plasmatico." },
+
+    { q:"Le tre grandi famiglie di proteine plasmatiche sono:",
       options:["Albumina, prealbumina, complemento","Albumina, globuline, fibrinogeno","Globuline, ferritina, transferrina","Fibrina, immunoglobuline, enzimi"],
-      answer:1, explain:"Classicamente: albumina, globuline e fibrinogeno." },
+      answer:1, explain:"Classicamente: albumina, globuline, fibrinogeno." },
+
     { q:"La proteina più abbondante nel plasma è:",
       options:["Fibrinogeno","Albumina","Transferrina","IgG"],
-      answer:1, explain:"L’albumina è la più abbondante e pesa molto su pressione oncotica/trasporto." },
-    { q:"Il fibrinogeno è soprattutto coinvolto in:",
-      options:["Tampone del pH","Difesa immunitaria","Coagulazione","Trasporto dei lipidi"],
-      answer:2, explain:"Fibrinogeno → fibrina durante la coagulazione." },
-    { q:"La “pressione oncotica” dipende soprattutto dal fatto che molte proteine:",
-      options:["Attraversano facilmente i capillari","Restano nei vasi e richiamano acqua","Distruggono i batteri","Bloccano la glicemia"],
-      answer:1, explain:"Le proteine rimangono nel compartimento vascolare e trattengono acqua per effetto osmotico-colloidale." },
-    { q:"Quando le globuline trasportano lipidi, si parla di:",
+      answer:1, explain:"Albumina = frazione più grande anche all’elettroforesi." },
+
+    { q:"Ruolo chiave dell’albumina:",
+      options:["Solo difesa immunitaria","Mantiene acqua nei vasi (oncotica) e trasporta molecole (anche farmaci)","Coagulazione","Sintesi di anticorpi"],
+      answer:1, explain:"Albumina: pressione oncotica + trasporto (anche farmaci)." },
+
+    { q:"Le globuline includono in particolare:",
+      options:["Solo fibrina","Immunoglobuline (anticorpi) e proteine trasportatrici","Solo albumina","Solo enzimi digestivi"],
+      answer:1, explain:"Globuline: gruppo eterogeneo con anticorpi e trasportatori." },
+
+    { q:"Quando le globuline trasportano lipidi si chiamano:",
       options:["Glicoproteine","Lipoproteine","Proteasi","Fosfoproteine"],
-      answer:1, explain:"Le lipoproteine trasportano lipidi nel sangue." },
+      answer:1, explain:"Lipoproteine: lipidi da soli non sono solubili in acqua." },
+
+    { q:"Il fibrinogeno è fondamentale per:",
+      options:["Tampone del pH","Difesa immunitaria","Coagulazione (→ fibrina)","Trasporto dei metalli"],
+      answer:2, explain:"Fibrinogeno → fibrina: rete che stabilizza il coagulo." },
+
+    { q:"Pressione oncotica: perché le proteine la determinano?",
+      options:["Perché attraversano facilmente i capillari","Perché restano nei vasi e richiamano acqua","Perché distruggono i batteri","Perché aumentano la glicemia"],
+      answer:1, explain:"Molte proteine non attraversano i capillari: restano nei vasi e trattengono acqua." },
+
     { q:"L’elettroforesi separa le proteine soprattutto in base a:",
       options:["Temperatura e viscosità","Carica e dimensione","Colore e densità","Solubilità e pressione"],
-      answer:1, explain:"In elettroforesi contano carica (pH) e dimensioni/forma → mobilità." },
-    { q:"Le frazioni tipiche del protidogramma sono:",
+      answer:1, explain:"Separazione principalmente per carica e dimensione." },
+
+    { q:"In un campo elettrico, molecole con carica netta negativa migrano verso:",
+      options:["Catodo (-)","Anodo (+)","Non migrano","Dipende solo dalla temperatura"],
+      answer:1, explain:"Carica negativa → anodo (+)." },
+
+    { q:"A pH basico (~8,6) molte proteine sieriche risultano:",
+      options:["Positive e vanno al catodo","Negative e vanno all’anodo","Neutre e non migrano","Sempre legate ai globuli rossi"],
+      answer:1, explain:"A pH 8,6 molte risultano negative → anodo." },
+
+    { q:"Frazioni tipiche nel protidogramma:",
       options:["Albumina, α1, α2, β, γ","α, β, δ, ε, ω","Albumina, fibrina, piastrine","Globuli rossi, globuli bianchi, piastrine"],
-      answer:0, explain:"Frazioni standard: albumina, α1, α2, β, γ." },
-    { q:"Il siero è:",
-      options:["Plasma con anticoagulante","Plasma privo di fibrinogeno","Solo la parte cellulare del sangue","Plasma con più globuline"],
-      answer:1, explain:"Siero = plasma dopo coagulazione → senza fibrinogeno (consumato nel coagulo)." }
+      answer:0, explain:"Tracciato classico: albumina + α1 + α2 + β + γ." },
+
+    { q:"In un profilo “normale”, il picco più alto è:",
+      options:["γ","β","Albumina","α2"],
+      answer:2, explain:"Il picco albumina è tipicamente il più alto." },
+
+    { q:"Quale proteina si trova spesso nella frazione α1?",
+      options:["α1-antitripsina","Transferrina","IgG","Fibrinogeno"],
+      answer:0, explain:"Esempio tipico: α1-antitripsina." },
+
+    { q:"Quale coppia è tipica della frazione α2?",
+      options:["IgA e IgG","α2-macroglobulina e aptoglobina","Albumina e fibrina","C3 e transferrina"],
+      answer:1, explain:"α2: α2-macroglobulina e aptoglobina (esempi)." },
+
+    { q:"Nella frazione β trovi spesso:",
+      options:["Transferrina e componenti del complemento (es. C3)","Solo albumina","Solo immunoglobuline","Solo fibrina"],
+      answer:0, explain:"β: transferrina + complemento (es. C3)." },
+
+    { q:"La zona γ contiene principalmente:",
+      options:["Albumina","Immunoglobuline","Fibrinogeno","Transferrina"],
+      answer:1, explain:"Zona γ = immunoglobuline." },
+
+    { q:"Plasma vs siero: quale definizione è corretta?",
+      options:["Sono identici","Plasma = sangue con anticoagulante; Siero = plasma senza fibrinogeno (dopo coagulazione)","Siero contiene più fibrinogeno","Plasma è privo di fattori della coagulazione"],
+      answer:1, explain:"Siero = plasma privo di fibrinogeno (consumato nel coagulo)." },
+
+    { q:"Per studiare la coagulazione serve in genere:",
+      options:["Siero","Plasma","Urina","Saliva"],
+      answer:1, explain:"Per la coagulazione servono fattori presenti nel plasma." },
+
+    // Pre-analitica
+    { q:"Digiuno consigliato per molti esami:",
+      options:["1–2 ore","4 ore","8–12 ore","24 ore sempre"],
+      answer:2, explain:"Nel documento: spesso 8–12 ore." },
+
+    { q:"Per ridurre variazioni da postura si consiglia:",
+      options:["Far correre il paziente","Far restare seduto ~15 minuti prima del prelievo","Tenere il braccio sollevato 30 min","Fare sempre il prelievo da sdraiati"],
+      answer:1, explain:"Regola pratica: paziente seduto circa 15 minuti." },
+
+    { q:"Per ridurre variazioni circadiane, spesso il prelievo si fa:",
+      options:["Di notte","A pranzo","Al mattino ~7–9","Solo nel pomeriggio"],
+      answer:2, explain:"Nel documento: spesso 7–9." },
+
+    { q:"Laccio emostatico: regola pratica per evitare alterazioni da stasi:",
+      options:["Lasciarlo 5 minuti","Non stringerlo mai","Entro ~60 secondi","Solo se il paziente è a digiuno"],
+      answer:2, explain:"Nel documento: entro 60 secondi (non troppo stretto né troppo lungo)." },
+
+    // Anticoagulanti
+    { q:"EDTA blocca la coagulazione perché:",
+      options:["Aumenta la temperatura","Chelando il calcio","Aumenta il ferro","Denatura l’albumina"],
+      answer:1, explain:"EDTA chela Ca2+ (essenziale nella coagulazione)." },
+
+    { q:"Citrato/Ossalato sono usati spesso per test di coagulazione perché:",
+      options:["Chelano il calcio in modo reversibile","Non interferiscono mai con nulla","Trasformano fibrinogeno in fibrina","Aumentano il pH a 9,0"],
+      answer:0, explain:"Chelano Ca2+ in modo reversibile: utile nei test di coagulazione." },
+
+    { q:"Eparina: nota importante dal documento",
+      options:["È perfetta per studi di coagulazione","Non è adatta agli studi della coagulazione","È un chelante del calcio come EDTA","Serve solo per siero"],
+      answer:1, explain:"Nel documento: eparina molto usata, ma non adatta agli studi della coagulazione." }
   ]
 };
 
@@ -497,7 +702,7 @@ const statAcc = $("#statAcc");
 const statGood = $("#statGood");
 const statTotal = $("#statTotal");
 
-const STORAGE_KEY = "uniquiz_v2_light";
+const STORAGE_KEY = "uniquiz_univpm_v3";
 const defaultPrefs = {
   lastSubject: Object.keys(QUESTION_BANK)[0] || "",
   shuffle: true,
@@ -540,10 +745,30 @@ function refreshStatsUI(){
   statAcc.textContent = acc + "%";
 }
 
-function setHeaderPills({subject, mode, count}){
+function setHeaderPills({subject, mode, availableOrCount, isInQuiz}){
   pillSubject.textContent = "Materia: " + (subject || "—");
   pillMode.textContent = "Modalità: " + (mode === "exam" ? "Esame" : "Allenamento");
-  pillCount.textContent = "Domande: " + (count ?? "—");
+  pillCount.textContent = (isInQuiz ? "Domande: " : "Disponibili: ") + (availableOrCount ?? "—");
+}
+
+function currentAvailable(){
+  const s = subjectSelect.value;
+  return (QUESTION_BANK[s] || []).length;
+}
+
+function updateSetupLimitsAndPills(){
+  const avail = currentAvailable();
+  numQuestionsInput.max = String(Math.max(1, avail));
+  const desired = parseInt(numQuestionsInput.value || "10", 10);
+  const clamped = clamp(desired, 1, Math.max(1, avail));
+  numQuestionsInput.value = String(clamped);
+
+  setHeaderPills({
+    subject: subjectSelect.value,
+    mode: modeSelect.value,
+    availableOrCount: avail,
+    isInQuiz: false
+  });
 }
 
 /* ===========================
@@ -577,6 +802,7 @@ function showSetup(){
   screenResults.style.display = "none";
   mainTitle.textContent = "Seleziona una materia";
   mainSubtitle.textContent = "Scegli la materia, imposta quante domande fare e avvia il quiz.";
+  updateSetupLimitsAndPills();
 }
 
 function showQuiz(){
@@ -627,7 +853,12 @@ function renderQuestion(){
     optList.appendChild(b);
   });
 
-  setHeaderPills({subject, mode, count: items.length});
+  setHeaderPills({
+    subject,
+    mode,
+    availableOrCount: items.length,
+    isInQuiz: true
+  });
 }
 
 function choose(choiceIndex){
@@ -676,10 +907,9 @@ function next(){
   if(!quiz) return;
   if(!quiz.answered) return;
 
-  const {items} = quiz;
   quiz.index += 1;
 
-  if(quiz.index >= items.length){
+  if(quiz.index >= quiz.items.length){
     finalize();
     return;
   }
@@ -744,48 +974,54 @@ function init(){
   numQuestionsInput.value = prefs.numQuestions || 10;
 
   shuffleState.textContent = prefs.shuffle ? "ON" : "OFF";
-  setHeaderPills({subject: subjectSelect.value, mode: modeSelect.value, count: "—"});
+  btnShuffle.classList.toggle("toggle-on", prefs.shuffle);
 
+  // listeners
   subjectSelect.addEventListener("change", () => {
     prefs.lastSubject = subjectSelect.value;
     savePrefs(prefs);
-    setHeaderPills({subject: subjectSelect.value, mode: modeSelect.value, count: "—"});
+    updateSetupLimitsAndPills();
   });
+
   modeSelect.addEventListener("change", () => {
     prefs.mode = modeSelect.value;
     savePrefs(prefs);
-    setHeaderPills({subject: subjectSelect.value, mode: modeSelect.value, count: "—"});
+    updateSetupLimitsAndPills();
   });
+
   numQuestionsInput.addEventListener("change", () => {
-    prefs.numQuestions = parseInt(numQuestionsInput.value || "10", 10);
+    const avail = currentAvailable();
+    const val = clamp(parseInt(numQuestionsInput.value || "10", 10), 1, Math.max(1, avail));
+    numQuestionsInput.value = String(val);
+    prefs.numQuestions = val;
     savePrefs(prefs);
   });
 
   btnShuffle.addEventListener("click", () => {
     prefs.shuffle = !prefs.shuffle;
     shuffleState.textContent = prefs.shuffle ? "ON" : "OFF";
+    btnShuffle.classList.toggle("toggle-on", prefs.shuffle);
     savePrefs(prefs);
   });
 
   btnStart.addEventListener("click", () => {
     const subject = subjectSelect.value;
-    const n = parseInt(numQuestionsInput.value || "10", 10);
+    const avail = currentAvailable();
+    const n = clamp(parseInt(numQuestionsInput.value || "10", 10), 1, Math.max(1, avail));
     const mode = modeSelect.value;
-    const totalAvail = (QUESTION_BANK[subject] || []).length;
-    const nn = clamp(n, 1, Math.max(1, totalAvail));
 
     prefs.lastSubject = subject;
     prefs.mode = mode;
-    prefs.numQuestions = nn;
+    prefs.numQuestions = n;
     savePrefs(prefs);
 
-    quiz = buildQuiz(subject, nn, mode, prefs.shuffle);
+    quiz = buildQuiz(subject, n, mode, prefs.shuffle);
     showQuiz();
     renderQuestion();
   });
 
   btnNext.addEventListener("click", next);
-  btnQuit.addEventListener("click", () => { quiz = null; showSetup(); setHeaderPills({subject: subjectSelect.value, mode: modeSelect.value, count:"—"}); });
+  btnQuit.addEventListener("click", () => { quiz = null; showSetup(); });
 
   btnRetry.addEventListener("click", () => {
     if(!quiz) return;
@@ -794,6 +1030,7 @@ function init(){
     showQuiz();
     renderQuestion();
   });
+
   btnBackHome.addEventListener("click", () => { quiz = null; showSetup(); });
 
   btnResetStats.addEventListener("click", () => {
@@ -805,6 +1042,7 @@ function init(){
 
   document.addEventListener("keydown", (e) => {
     if(screenQuiz.style.display === "none") return;
+
     if(["1","2","3","4"].includes(e.key)){
       const idx = parseInt(e.key, 10) - 1;
       const btns = [...optList.querySelectorAll(".opt")];
