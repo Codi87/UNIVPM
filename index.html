@@ -233,7 +233,6 @@
              src="univpm-logo.png"
              onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%27260%27 height=%2780%27><rect width=%27260%27 height=%2780%27 rx=%2712%27 fill=%27%23ffffff%27 stroke=%27%23d0d5dd%27/><text x=%2750%25%27 y=%2752%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-size=%2714%27 fill=%27%23667085%27>UNIVPM LOGO</text></svg>';">
 
-
         <div style="min-width:0">
           <h1>UniQuiz UNIVPM Infermieristica Pesaro
             <small>Studio universitario • quiz a scelta multipla</small>
@@ -243,6 +242,7 @@
 
       <div class="pillrow">
         <div class="pill" id="pillSubject">Materia: —</div>
+        <div class="pill" id="pillTopic">Argomento: —</div>
         <div class="pill" id="pillMode">Modalità: Allenamento</div>
         <div class="pill" id="pillCount">Disponibili: —</div>
       </div>
@@ -266,8 +266,13 @@
           <div id="screenSetup">
             <div class="row">
               <div class="field" style="flex:1;min-width:260px">
-                <label for="subjectSelect">Materia</label>
-                <select id="subjectSelect"></select>
+                <label for="materiaSelect">Materia</label>
+                <select id="materiaSelect"></select>
+              </div>
+
+              <div class="field" style="flex:1;min-width:260px">
+                <label for="topicSelect">Argomento</label>
+                <select id="topicSelect"></select>
               </div>
 
               <div class="field">
@@ -772,7 +777,40 @@ const QUESTION_BANK = {
 
     { q:"HbA1c è utile perché:",
       options:["Indica solo la glicemia del momento","Riflette la media del controllo glicemico nelle 4–8 settimane precedenti","Misura la pO2 nel sangue","Serve per diagnosticare anemia falciforme"],
-      answer:1, explain:"HbA1c deriva da glicazione non enzimatica: riflette la media glicemica delle settimane precedenti." }
+      answer:1, explain:"HbA1c deriva da glicazione non enzimatica: riflette la media glicemica delle settimane precedenti." },
+
+    /* ===== AGGIUNTE INTEGRATE (da file) ===== */
+    { q:"La mioglobina (Mb) rilascia ossigeno soprattutto quando:",
+      options:["La pO₂ nel muscolo aumenta","La pO₂ nel muscolo scende perché il muscolo lo sta consumando","La temperatura diminuisce","Il pH aumenta"],
+      answer:1, explain:"Mb ha alta affinità: rilascia O₂ soprattutto quando nel muscolo la disponibilità diminuisce (pO₂ scende) durante il lavoro muscolare." },
+
+    { q:"Perché la curva sigmoide dell’emoglobina è ideale per il trasporto di O₂?",
+      options:["Perché impedisce sempre il rilascio ai tessuti","Perché consente carico elevato ai polmoni e scarico efficace ai tessuti","Perché Hb lega solo 1 molecola di O₂","Perché non è regolabile da effettori"],
+      answer:1, explain:"La sigmoide (cooperatività) permette saturazione alta ai polmoni (pO₂ alta) e rilascio più facile ai tessuti (pO₂ più bassa)." },
+
+    { q:"Nel gruppo eme, il sito che può legare l’ossigeno è:",
+      options:["Uno dei 4 legami del ferro con l’anello porfirinico","Uno dei due legami “verticali” del ferro","Un legame con il glucosio","Un legame con il calcio"],
+      answer:1, explain:"Il ferro ha 4 legami con la porfirina + 2 verticali: uno ancora l’eme alla globina (istidina prossimale), l’altro è il sito per O₂." },
+
+    { q:"Perché l’eme deve stare “protetto” dentro la globina?",
+      options:["Perché l’eme non lega mai l’ossigeno","Perché la tasca della globina riduce reazioni indesiderate e stabilizza il legame reversibile","Perché così Hb diventa una proteina fibrosa","Perché serve a trasformare Fe2+ in Fe3+"],
+      answer:1, explain:"La globina crea una tasca che protegge l’eme e rende il legame con O₂ stabile ma reversibile, limitando reazioni indesiderate." },
+
+    { q:"In alta quota (pO₂ più bassa), due risposte importanti sono:",
+      options:["Ridurre Hb e ridurre 2,3-BPG","Aumentare Hb e aumentare 2,3-BPG","Aumentare Mb negli eritrociti","Eliminare la cooperatività"],
+      answer:1, explain:"Con meno O₂ disponibile, l’organismo aumenta produzione di Hb e aumenta 2,3-BPG per facilitare la consegna di O₂ ai tessuti." },
+
+    { q:"Hb fetale (HbF): dopo la nascita cosa succede alle catene γ?",
+      options:["Vengono sostituite dalle catene β","Vengono sostituite dalle catene δ","Restano uguali per tutta la vita","Si trasformano in eme"],
+      answer:0, explain:"HbF è tipica del feto; dopo la nascita le catene γ vengono progressivamente sostituite dalle β (passaggio verso HbA)." },
+
+    { q:"HbS: confronto omozigosi vs eterozigosi (in generale):",
+      options:["Omozigosi lieve, eterozigosi grave","Omozigosi più grave; eterozigosi spesso sintomi lievi","Entrambe sempre asintomatiche","Entrambe sempre richiedono trasfusioni"],
+      answer:1, explain:"La forma omozigote è tipicamente più severa; nell’eterozigote i sintomi sono spesso più lievi." },
+
+    { q:"Nell’α-talassemia può formarsi:",
+      options:["Solo HbA1c","Tetrameri anomali come Hb di Barts e/o HbH","Solo HbF permanente in tutti","Metaemoglobina stabile"],
+      answer:1, explain:"Ridotta sintesi di catene α → formazione di tetrameri anomali (Hb di Barts/HbH) con gravità variabile." }
   ],
 
   /* =========================
@@ -861,7 +899,67 @@ const QUESTION_BANK = {
 
     { q:"Eparina: nota importante",
       options:["È perfetta per studi di coagulazione","Non è adatta agli studi della coagulazione (in genere)","È un chelante del calcio come EDTA","Serve solo per siero"],
-      answer:1, explain:"Eparina usata in vari contesti, ma in genere non è la scelta per i test di coagulazione." }
+      answer:1, explain:"Eparina usata in vari contesti, ma in genere non è la scelta per i test di coagulazione." },
+
+    /* ===== AGGIUNTE INTEGRATE (da file) ===== */
+    { q:"Il protidogramma è:",
+      options:["Una radiografia del sangue","Un grafico di picchi ottenuto dopo elettroforesi e lettura densitometrica","Un conteggio dei globuli rossi","Un test esclusivo per HbA1c"],
+      answer:1, explain:"Dopo elettroforesi le proteine si separano in frazioni e la densitometria può produrre un tracciato a picchi (protidogramma)." },
+
+    { q:"Le proteine plasmatiche possono essere considerate anche:",
+      options:["Solo indicatori senza funzione","Una riserva dinamica di amminoacidi (pool)","Solo un prodotto di scarto","Solo un ormone"],
+      answer:1, explain:"Oltre a trasporto e oncotica, contribuiscono al pool amminoacidico (riserva dinamica in crescita/recupero/malnutrizione)." },
+
+    { q:"Nel file è indicato che le proteine plasmatiche contribuiscono anche a:",
+      options:["Diminuire la viscosità del sangue a zero","Viscosità del sangue e funzione tampone per il pH","Solo al trasporto di O₂","Solo alla digestione"],
+      answer:1, explain:"Le proteine contribuiscono alla viscosità e partecipano al mantenimento del pH (tamponi)." },
+
+    { q:"A pH basico (≈8,6) molte proteine sieriche sono negative e migrano verso:",
+      options:["Catodo (-)","Anodo (+)","Non migrano","Verso il centro"],
+      answer:1, explain:"A pH alcalino molte proteine hanno carica netta negativa → migrano verso l’anodo (+)." },
+
+    { q:"Per ridurre variazioni circadiane, il prelievo è spesso consigliato:",
+      options:["Dopo allenamento intenso","Al mattino (circa 7–9)","Solo a mezzanotte","Solo dopo 24h di digiuno"],
+      answer:1, explain:"Molti parametri variano durante la giornata: per standardizzare spesso si preleva al mattino (circa 7–9)." },
+
+    { q:"Perché è importante segnalare i farmaci assunti prima degli esami?",
+      options:["Perché non influiscono mai","Perché possono modificare parametri biologici o interferire con metodi di laboratorio","Solo per motivi legali","Solo per scegliere il gruppo sanguigno"],
+      answer:1, explain:"Farmaci e terapie possono alterare i risultati o interferire con alcuni metodi: segnalarli aiuta interpretazione corretta." }
+    ,
+    { q:"In elettroforesi, un picco stretto (“M-spike”) nella zona γ suggerisce spesso:",
+      options:["Disidratazione acuta","Gammopatia monoclonale (es. mieloma multiplo)","Deficit di fibrinogeno","Iperlipidemia post-prandiale"],
+      answer:1, explain:"Un picco stretto in zona γ indica produzione monoclonale di immunoglobuline (gammopatia monoclonale)."
+    },
+
+    { q:"Una marcata ipoalbuminemia può causare edema soprattutto perché:",
+      options:["Aumenta la pressione oncotica plasmatica","Riduce la pressione oncotica plasmatica favorendo passaggio di acqua nei tessuti","Aumenta la viscosità del sangue","Blocca l’attivazione del complemento"],
+      answer:1, explain:"L’albumina contribuisce molto alla pressione oncotica: se diminuisce, l’acqua tende a uscire dai vasi → edema."
+    },
+
+    { q:"Tra le proteine della frazione α1 all’elettroforesi è spesso inclusa:",
+      options:["Alfa1-antitripsina","Immunoglobulina G (IgG)","Fibrinogeno","Albumina"],
+      answer:0, explain:"La frazione α1 comprende, tra le altre, alfa1-antitripsina; le Ig sono prevalentemente in γ."
+    },
+
+    { q:"L’aptoglobina (haptoglobin) serve principalmente a:",
+      options:["Trasportare ferro (Fe) nel plasma","Legare l’emoglobina libera nel sangue, riducendo perdita di ferro e danno ossidativo","Formare fibrina nel coagulo","Trasportare trigliceridi come lipoproteina"],
+      answer:1, explain:"L’aptoglobina lega Hb libera (soprattutto in emolisi intravascolare); è una proteina di fase acuta."
+    },
+
+    { q:"Un campione di sangue emolizzato (rottura dei globuli rossi) può:",
+      options:["Non influire mai sugli esami","Interferire con vari dosaggi e falsare alcuni risultati (es. aumento di analiti intracellulari)","Aumentare sempre l’albumina","Trasformare il plasma in siero"],
+      answer:1, explain:"L’emolisi libera componenti intracellulari e può interferire con metodi analitici: va segnalata/evitata."
+    },
+
+    { q:"La lipemia (plasma torbido, ricco di trigliceridi) dopo un pasto può:",
+      options:["Migliorare sempre la qualità del campione","Interferire con alcune analisi e rendere meno affidabili certi dosaggi","Sostituire la necessità di centrifugazione","Eliminare il fibrinogeno"],
+      answer:1, explain:"La lipemia può interferire con misure fotometriche e altri test: per questo spesso si richiede digiuno."
+    },
+
+    { q:"Nei test di coagulazione, il citrato è usato perché:",
+      options:["Chelando il calcio blocca la coagulazione in modo reversibile (riaggiungendo Ca2+ si può avviare il test)","Denatura irreversibilmente tutti i fattori","Aumenta la coagulazione rendendola più rapida","Trasforma fibrinogeno in fibrina già in provetta"],
+      answer:0, explain:"Il citrato chela Ca2+ in modo reversibile; in laboratorio si può riaggiungere calcio per avviare la reazione."
+    }
   ],
 
   /* =========================
@@ -1097,6 +1195,276 @@ const QUESTION_BANK = {
     { q:"Nel sangue, per trasportare grassi idrofobici servono spesso:",
       options:["Lipoproteine","Ribosomi","Zimogeni","Disaccaridi"],
       answer:0, explain:"Lipoproteine (chilomicroni/VLDL/LDL/HDL) trasportano lipidi nel plasma acquoso." }
+  ],
+
+  /* =========================
+   *  ACIDI NUCLEICI E GENI (nuovo)
+   * ========================= */
+  "Biochimica – Acidi nucleici e geni": [
+    { q:"Un nucleotide è composto da:",
+      options:["Base azotata + zucchero + gruppo fosfato","Base azotata + zucchero (senza fosfato)","Solo base azotata","Zucchero + acido grasso"],
+      answer:0, explain:"Il nucleotide contiene base azotata, pentoso e uno o più gruppi fosfato. Base+zucchero senza fosfato = nucleoside." },
+
+    { q:"La differenza principale tra DNA e RNA (nel pentoso) è che:",
+      options:["Il DNA ha ribosio e l’RNA desossiribosio","Il DNA ha desossiribosio e l’RNA ribosio","Entrambi hanno lo stesso zucchero","Il DNA ha fruttosio e l’RNA glucosio"],
+      answer:1, explain:"DNA: desossiribosio (manca -OH in 2’). RNA: ribosio." },
+
+    { q:"Nel DNA, l’appaiamento corretto delle basi è:",
+      options:["A–G e C–T","A–T e C–G","A–C e T–G","A–U e C–G"],
+      answer:1, explain:"Nel DNA: adenina con timina, citosina con guanina." },
+
+    { q:"Nell’RNA, l’uracile (U) appaia con:",
+      options:["Adenina (A)","Citosina (C)","Guanina (G)","Timina (T)"],
+      answer:0, explain:"Nell’RNA l’uracile sostituisce la timina e si appaia con l’adenina." },
+
+    { q:"Le due catene del DNA sono disposte:",
+      options:["Parallele (stesso verso)","Antiparallele (5'→3' e 3'→5')","Sempre indipendenti senza interazioni","Una è proteica e l’altra nucleotidica"],
+      answer:1, explain:"Le catene sono antiparallele: fondamentale per replicazione e appaiamento." },
+
+    { q:"Il legame che unisce i nucleotidi lungo una catena di DNA/RNA è:",
+      options:["Peptidico","Fosfodiestere","Glicosidico","Disolfuro"],
+      answer:1, explain:"È un legame fosfodiestere tra il 3’OH di un nucleotide e il fosfato al 5’ del successivo." },
+
+    { q:"La replicazione del DNA richiede un primer perché:",
+      options:["La DNA polimerasi non può iniziare de novo: necessita di un 3’OH libero","Il primer fornisce energia sotto forma di ATP","Il primer è sempre una proteina","Senza primer la doppia elica non può aprirsi"],
+      answer:0, explain:"La DNA polimerasi allunga una catena esistente: serve un 3’OH libero, fornito dal primer (di solito RNA)." },
+
+    { q:"L’enzima che sintetizza RNA a partire da DNA (trascrizione) è:",
+      options:["DNA polimerasi","RNA polimerasi","Ligasi","Topoisomerasi"],
+      answer:1, explain:"La trascrizione è catalizzata dall’RNA polimerasi." },
+
+    { q:"Un codone è:",
+      options:["Una tripletta di nucleotidi sull’mRNA che codifica un amminoacido o uno stop","Una coppia di basi nel DNA","Un enzima della replicazione","Una proteina di membrana"],
+      answer:0, explain:"Il codice genetico usa triplette (codoni) sull’mRNA." },
+
+    { q:"Una mutazione 'missenso' è:",
+      options:["Una mutazione che non cambia l’amminoacido (silente)","Una mutazione che introduce uno stop prematuro (nonsense)","Una mutazione che cambia un amminoacido in un altro","Una mutazione che elimina un intero cromosoma"],
+      answer:2, explain:"Missenso: sostituzione che porta a un amminoacido diverso nella proteina." }
+  ],
+
+  /* =========================
+   *  pH E TAMPONI (nuovo)
+   * ========================= */
+  "Biochimica – pH e tamponi": [
+    { q:"Il pH è definito come:",
+      options:["log10([H+])","−log10([H+])","[H+]/[OH−]","[OH−] − [H+]"],
+      answer:1, explain:"pH = −log10 della concentrazione (attività) di H+." },
+
+    { q:"A 25°C, in acqua pura il prodotto ionico Kw vale circa:",
+      options:["10−7","10−14","10−3","10−1"],
+      answer:1, explain:"Kw = [H+][OH−] ≈ 1×10−14 a 25°C." },
+
+    { q:"Una soluzione è acida quando:",
+      options:["pH > 7","pH = 7","pH < 7","pH = 14"],
+      answer:2, explain:"Acida: pH inferiore a 7 (a 25°C)." },
+
+    { q:"Un tampone è più efficace quando:",
+      options:["pH è molto lontano dal pKa","pH ≈ pKa (rapporto acido/base simile)","C’è solo base forte","C’è solo acido forte"],
+      answer:1, explain:"La massima capacità tampone è vicino al pKa della coppia acido/base coniugata." },
+
+    { q:"L’equazione di Henderson–Hasselbalch è:",
+      options:["pH = pKa + log([base]/[acido])","pH = pKa − log([base]/[acido])","pH = 14 − pKa","pH = [H+]+[OH−]"],
+      answer:0, explain:"Descrive il pH di un tampone in funzione del rapporto base/acido." },
+
+    { q:"Il principale sistema tampone del plasma è:",
+      options:["Emoglobina","Bicarbonato/Acido carbonico","Fosfato di calcio","Trigliceridi"],
+      answer:1, explain:"Nel plasma domina il sistema bicarbonato (HCO3−/H2CO3), collegato alla CO2." },
+
+    { q:"L’anidrasi carbonica catalizza:",
+      options:["CO2 + H2O ⇄ H2CO3 ⇄ H+ + HCO3−","H2O2 ⇄ H2O + O2","ATP → ADP + Pi","Glucosio → lattato"],
+      answer:0, explain:"Accelera l’idratazione della CO2 e la formazione di bicarbonato: importante nei GR e nei tessuti." },
+
+    { q:"Un aumento di CO2 nel sangue tende a:",
+      options:["Aumentare il pH (alcalosi)","Diminuire il pH (acidosi respiratoria)","Non cambiare il pH","Aumentare sempre il bicarbonato senza effetti"],
+      answer:1, explain:"Più CO2 → più H2CO3 → più H+ → pH scende (tendenza all’acidosi respiratoria)." },
+
+    { q:"Il punto isoelettrico (pI) di una proteina è il pH in cui:",
+      options:["Ha massima solubilità","Ha carica netta zero","È sempre denaturata","È sempre completamente positiva"],
+      answer:1, explain:"Al pI la carica netta è zero (spesso solubilità minima e mobilità elettroforetica ridotta)." },
+
+    { q:"Se iperventilo (elimino più CO2), il pH del sangue tende a:",
+      options:["Diminuire","Aumentare","Restare identico","Diventare sempre 7,00"],
+      answer:1, explain:"CO2 diminuisce → meno acido carbonico → meno H+ → pH sale (tendenza ad alcalosi respiratoria)." }
+  ],
+
+  /* =========================
+   *  METABOLISMO ENERGETICO (nuovo)
+   * ========================= */
+  "Biochimica – Metabolismo energetico": [
+    { q:"La glicolisi avviene principalmente:",
+      options:["Nel nucleo","Nel citosol","Nel mitocondrio (matrice)","Nel reticolo endoplasmatico"],
+      answer:1, explain:"La glicolisi è una via citosolica." },
+
+    { q:"La resa netta della glicolisi (da 1 glucosio a 2 piruvati) è:",
+      options:["2 ATP netti (più NADH)","0 ATP netti","8 ATP netti","36 ATP netti"],
+      answer:0, explain:"La glicolisi produce 4 ATP ma ne consuma 2: netto 2 ATP + 2 NADH." },
+
+    { q:"In assenza di O2 (anaerobiosi), il piruvato viene spesso convertito in lattato per:",
+      options:["Aumentare il pH","Rigenerare NAD+ necessario alla glicolisi","Produrre più ATP nel mitocondrio","Bloccare l’enzima esochinasi"],
+      answer:1, explain:"La lattato deidrogenasi rigenera NAD+ permettendo alla glicolisi di continuare." },
+
+    { q:"Il complesso della piruvato deidrogenasi (PDH) converte:",
+      options:["Acetil-CoA in piruvato","Piruvato in acetil-CoA + CO2 + NADH","Lattato in glucosio","Glucosio in glicogeno"],
+      answer:1, explain:"PDH collega glicolisi e ciclo di Krebs: piruvato → acetil-CoA." },
+
+    { q:"Il ciclo di Krebs (ciclo dell’acido citrico) avviene principalmente:",
+      options:["Nel citosol","Nella matrice mitocondriale","Nel plasma","Nel lisosoma"],
+      answer:1, explain:"Nelle cellule eucariotiche il ciclo di Krebs è in matrice mitocondriale." },
+
+    { q:"Il ciclo di Krebs produce soprattutto:",
+      options:["Tanto lattato e poca energia","NADH e FADH2 che alimentano la catena respiratoria","Solo ATP diretto","Solo CO2 senza equivalenti riducenti"],
+      answer:1, explain:"Krebs genera equivalenti riducenti (NADH/FADH2) per la fosforilazione ossidativa." },
+
+    { q:"La catena di trasporto degli elettroni è localizzata principalmente:",
+      options:["Membrana mitocondriale interna","Membrana plasmatica (sempre)","Matrice mitocondriale","Nucleo"],
+      answer:0, explain:"I complessi della catena respiratoria sono nella membrana mitocondriale interna." },
+
+    { q:"L’ossigeno (O2) nella fosforilazione ossidativa è:",
+      options:["Il primo donatore di elettroni","L’accettore finale di elettroni","Un inibitore della catena","Un coenzima derivato da vitamina B"],
+      answer:1, explain:"O2 accetta gli elettroni alla fine della catena e si riduce a H2O." },
+
+    { q:"L’ATP sintasi produce ATP sfruttando:",
+      options:["Il gradiente di protoni (forza proton-motrice)","La rottura dei legami peptidici","Un gradiente di glucosio","Solo energia luminosa"],
+      answer:0, explain:"Il flusso di H+ attraverso ATP sintasi guida la fosforilazione di ADP a ATP." },
+
+    { q:"Uno 'disaccoppiante' (uncoupler) della fosforilazione ossidativa tende a:",
+      options:["Aumentare la produzione di ATP","Ridurre ATP e aumentare produzione di calore","Bloccare la glicolisi nel citosol","Trasformare NADH in glucosio"],
+      answer:1, explain:"Gli uncoupler dissipano il gradiente di H+ come calore: meno ATP, più termogenesi." }
+  ],
+
+  /* =========================
+   *  VITAMINE E COENZIMI (nuovo)
+   * ========================= */
+  "Biochimica – Vitamine e coenzimi": [
+    { q:"NAD+ e NADP+ derivano principalmente da quale vitamina?",
+      options:["Vitamina B3 (niacina)","Vitamina B1 (tiamina)","Vitamina C (acido ascorbico)","Vitamina K"],
+      answer:0, explain:"NAD/NADP sono coenzimi redox derivati da niacina (B3)." },
+
+    { q:"FAD e FMN derivano principalmente da:",
+      options:["Vitamina B2 (riboflavina)","Vitamina B6 (piridossina)","Vitamina A (retinolo)","Vitamina D"],
+      answer:0, explain:"Riboflavina (B2) è precursore di FMN e FAD." },
+
+    { q:"Il TPP (tiamina pirofosfato), importante per decarbossilazioni, deriva da:",
+      options:["Vitamina B1 (tiamina)","Vitamina B9 (folati)","Vitamina E","Vitamina B12"],
+      answer:0, explain:"TPP è il coenzima della tiamina (B1), essenziale per PDH e altre reazioni." },
+
+    { q:"PLP (piridossal fosfato), coenzima delle transaminasi, deriva da:",
+      options:["Vitamina B6","Vitamina B7 (biotina)","Vitamina B5 (pantotenato)","Vitamina C"],
+      answer:0, explain:"La vitamina B6 è fondamentale nel metabolismo degli amminoacidi (transaminazioni, decarbossilazioni)." },
+
+    { q:"La biotina (B7) è tipicamente coinvolta in:",
+      options:["Reazioni di carbossilazione (trasporto di CO2)","Reazioni di ossidoriduzione con NADH","Sintesi di legami peptidici nel ribosoma","Trasporto di O2"],
+      answer:0, explain:"Biotina: coenzima di carbossilasi (es. piruvato carbossilasi, acetil-CoA carbossilasi)." },
+
+    { q:"Il Coenzima A deriva principalmente da:",
+      options:["Vitamina B5 (acido pantotenico)","Vitamina B2","Vitamina A","Vitamina K"],
+      answer:0, explain:"B5 è precursore del CoA, che trasporta gruppi acilici (es. acetile)." },
+
+    { q:"La vitamina C è importante perché:",
+      options:["È un coenzima per idrossilazione di prolina/lisina nel collagene e un antiossidante","È precursore del CoA","Forma direttamente ATP nei mitocondri","È la principale forma di trasporto dell’O2"],
+      answer:0, explain:"Vitamina C: collagene (cicatrizzazione) e difesa antiossidante; carenza → scorbuto." },
+
+    { q:"La vitamina K è necessaria per:",
+      options:["Sintesi del glicogeno","γ-carbossilazione di fattori della coagulazione (attivazione)","Formazione di emoglobina fetale","Produzione di bile"],
+      answer:1, explain:"Vitamina K attiva fattori della coagulazione tramite γ-carbossilazione (legame Ca2+)." },
+
+    { q:"Quali sono le vitamine liposolubili?",
+      options:["B e C","A, D, E, K","Solo A e C","Solo D e B12"],
+      answer:1, explain:"A, D, E, K sono liposolubili (si accumulano più facilmente; rischio ipervitaminosi)." },
+
+    { q:"Una carenza di vitamina A può dare soprattutto:",
+      options:["Scorbuto","Cecità notturna e problemi epiteliali","Rachitismo","Anemia sideropenica"],
+      answer:1, explain:"Vitamina A (retinale/retinolo): vista (rodopsina) e integrità epiteliale; carenza → cecità notturna." }
+  ],
+
+  /* =========================
+   *  MEMBRANE, TRASPORTO E SEGNALI (nuovo)
+   * ========================= */
+  "Biochimica – Membrane, trasporto e segnali": [
+    { q:"I fosfolipidi di membrana sono molecole:",
+      options:["Completamente idrofobiche","Anfipatiche (testa polare + code apolari)","Solo polari","Solo proteiche"],
+      answer:1, explain:"La natura anfipatica porta alla formazione spontanea del doppio strato in acqua." },
+
+    { q:"Il modello della membrana cellulare è detto:",
+      options:["Modello a blocchi rigidi","Modello a mosaico fluido","Modello a cristallo","Modello a fibrina"],
+      answer:1, explain:"Mosaico fluido: lipidi e proteine diffondono lateralmente, con fluidità modulata da composizione e colesterolo." },
+
+    { q:"La diffusione semplice attraverso la membrana riguarda soprattutto:",
+      options:["Ioni e macromolecole","Molecole piccole apolari (es. O2, CO2)","Proteine plasmatiche","Nucleotidi carichi"],
+      answer:1, explain:"Molecole piccole e apolari attraversano più facilmente il doppio strato lipidico." },
+
+    { q:"Il trasporto facilitato è:",
+      options:["Sempre contro gradiente e richiede ATP","Sempre con vescicole","Attraverso trasportatori/canali ma lungo gradiente (senza ATP diretto)","Solo per lipidi"],
+      answer:2, explain:"Facilitato: proteine di membrana aiutano il passaggio lungo gradiente; può saturare." },
+
+    { q:"Il trasporto attivo primario è definito perché:",
+      options:["Usa direttamente ATP per muovere soluti contro gradiente","Non usa mai energia","È sempre passivo","Trasporta solo acqua"],
+      answer:0, explain:"Esempio: pompa Na+/K+ ATPasi." },
+
+    { q:"La pompa Na+/K+ ATPasi per ogni ATP tipicamente:",
+      options:["Espelle 2 Na+ e introduce 3 K+","Espelle 3 Na+ e introduce 2 K+","Espelle 1 Na+ e introduce 1 K+","Non cambia alcun ione"],
+      answer:1, explain:"Classico: 3 Na+ fuori, 2 K+ dentro per ATP → contribuisce al potenziale di membrana." },
+
+    { q:"Un simporto (co-trasporto) significa che:",
+      options:["Due soluti si muovono in direzioni opposte","Due soluti si muovono nella stessa direzione","Un soluto passa senza proteine","Avviene solo nel nucleo"],
+      answer:1, explain:"Simporto: due soluti nella stessa direzione (es. Na+/glucosio SGLT1 nell’intestino)." },
+
+    { q:"Il recettore dell’insulina è un esempio di:",
+      options:["Canale ionico ligandodipendente","Recettore tirosin-chinasico","GPCR (7 eliche)","Recettore nucleare per steroidi"],
+      answer:1, explain:"Il recettore insulinico ha attività tirosin-chinasica e attiva vie di segnalazione (es. PI3K/Akt)." },
+
+    { q:"Il cAMP è un secondo messaggero prodotto da:",
+      options:["Adenilato ciclasi a partire da ATP","ATP sintasi a partire da ADP","DNA polimerasi a partire da dNTP","Pepsina a partire da proteine"],
+      answer:0, explain:"Adenilato ciclasi converte ATP in cAMP, spesso a valle di recettori GPCR." },
+
+    { q:"L’endocitosi mediata da recettore è importante per l’ingresso di:",
+      options:["O2 e CO2","LDL (colesterolo) tramite recettore LDL","Acqua per osmosi","Proteine del collagene direttamente nel nucleo"],
+      answer:1, explain:"Le LDL si legano al recettore e vengono internalizzate in vescicole (clatrina)." }
+  ],
+
+  /* =========================
+   *  SOLUZIONI E OSMOLARITÀ (nuovo)
+   * ========================= */
+  "Biochimica – Soluzioni e osmolarità": [
+    { q:"L’osmosi è:",
+      options:["Movimento di soluti attraverso una membrana","Movimento di acqua attraverso una membrana semipermeabile verso maggiore osmolarità","Movimento di elettroni nella catena respiratoria","Trasporto attivo di Na+ e K+"],
+      answer:1, explain:"L’acqua tende a muoversi verso il compartimento con maggiore concentrazione di soluti efficaci (osmoli)." },
+
+    { q:"Una soluzione isotonica rispetto al plasma:",
+      options:["Fa gonfiare sempre i globuli rossi","Fa restringere sempre i globuli rossi","Non causa variazioni nette di volume cellulare","Blocca la pompa Na/K"],
+      answer:2, explain:"Isotonica: stessa pressione osmotica efficace → nessun flusso netto di acqua." },
+
+    { q:"Una soluzione ipotonica tende a:",
+      options:["Far entrare acqua nelle cellule (gonfiore/emolisi)","Far uscire acqua dalle cellule (crenazione)","Non cambiare mai il volume cellulare","Aumentare sempre il pH"],
+      answer:0, explain:"Ipotonica: osmolarità esterna più bassa → acqua entra nelle cellule." },
+
+    { q:"Una soluzione ipertonica tende a:",
+      options:["Far entrare acqua nelle cellule","Far uscire acqua dalle cellule (cellule che si 'raggrinziscono')","Sciogliere le membrane lipidiche","Aumentare sempre l’ATP"],
+      answer:1, explain:"Ipertonica: osmolarità esterna più alta → acqua esce dalle cellule." },
+
+    { q:"L’osmolarità dipende principalmente da:",
+      options:["Numero di particelle in soluzione (osmoli)","Colore della soluzione","Massa totale dei soluti","Solo dalla presenza di glucosio"],
+      answer:0, explain:"Conta il numero di particelle/osmoli (es. NaCl ≈ 2 osmoli per mole in soluzione ideale)." },
+
+    { q:"Nel compartimento extracellulare, il principale catione è:",
+      options:["K+","Na+","Ca2+","Mg2+"],
+      answer:1, explain:"Na+ è il principale catione extracellulare; K+ è principale intracellulare." },
+
+    { q:"Nel compartimento intracellulare, il principale catione è:",
+      options:["Na+","K+","Cl−","HCO3−"],
+      answer:1, explain:"K+ è il principale catione intracellulare." },
+
+    { q:"La pressione oncotica (colloido-osmotica) del plasma è dovuta soprattutto a:",
+      options:["Glucosio","Albumina","Sodio","Ossigeno disciolto"],
+      answer:1, explain:"Le proteine plasmatiche, soprattutto albumina, trattengono acqua nei vasi (oncotica)." },
+
+    { q:"Una perdita marcata di albumina (es. sindrome nefrosica) può favorire:",
+      options:["Edemi","Ipercalcemia","Aumento del pH a 9","Riduzione della glicemia post-prandiale"],
+      answer:0, explain:"Meno albumina → meno pressione oncotica → acqua tende a uscire dai vasi → edemi." },
+
+    { q:"La soluzione fisiologica 0,9% (NaCl) è considerata:",
+      options:["Ipotonica","Ipertonica","Isotonica (approssimativamente) rispetto al plasma","Sempre acida con pH 2"],
+      answer:2, explain:"NaCl 0,9% è usata come soluzione isotonicamente simile al plasma (non provoca grandi variazioni di volume cellulare)." }
   ]
 };
 
@@ -1105,7 +1473,8 @@ const QUESTION_BANK = {
  * =========================== */
 const $ = (sel) => document.querySelector(sel);
 
-const subjectSelect = $("#subjectSelect");
+const materiaSelect = $("#materiaSelect");
+const topicSelect = $("#topicSelect");
 const numQuestionsInput = $("#numQuestions");
 const modeSelect = $("#modeSelect");
 const btnStart = $("#btnStart");
@@ -1120,6 +1489,7 @@ const mainTitle = $("#mainTitle");
 const mainSubtitle = $("#mainSubtitle");
 
 const pillSubject = $("#pillSubject");
+const pillTopic = $("#pillTopic");
 const pillMode = $("#pillMode");
 const pillCount = $("#pillCount");
 
@@ -1147,9 +1517,49 @@ const statAcc = $("#statAcc");
 const statGood = $("#statGood");
 const statTotal = $("#statTotal");
 
-const STORAGE_KEY = "uniquiz_univpm_v3";
+const STORAGE_KEY = "uniquiz_univpm_v4";
+
+/**
+ * ===========================
+ *   Catalogo Materia → Argomento
+ *   (derivato automaticamente dalle chiavi del QUESTION_BANK)
+ *   Formato chiave atteso: "Materia – Argomento"
+ * ===========================
+ */
+function buildCatalogFromFlat(flat){
+  const catalog = {};
+  Object.keys(flat).forEach((key) => {
+    const parts = key.split(" – ");
+    const materia = (parts[0] || "Generale").trim() || "Generale";
+    const topic = (parts.length >= 2 ? parts.slice(1).join(" – ") : key).trim() || "Generale";
+    if(!catalog[materia]) catalog[materia] = {};
+    catalog[materia][topic] = flat[key];
+  });
+  return catalog;
+}
+const CATALOG = buildCatalogFromFlat(QUESTION_BANK);
+
+function getMaterie(){
+  return Object.keys(CATALOG);
+}
+function getTopics(materia){
+  return Object.keys(CATALOG[materia] || {});
+}
+function getQuestions(materia, topic){
+  return (CATALOG[materia] && CATALOG[materia][topic]) ? CATALOG[materia][topic] : [];
+}
+
+const _firstMateria = getMaterie()[0] || "Biochimica";
+const _firstTopic = (getTopics(_firstMateria)[0]) || "Generale";
+
 const defaultPrefs = {
-  lastSubject: Object.keys(QUESTION_BANK)[0] || "",
+  // nuovi campi
+  lastMateria: _firstMateria,
+  lastTopic: _firstTopic,
+
+  // compatibilità vecchia versione (se presente nel localStorage)
+  lastSubject: "",
+
   shuffle: true,
   mode: "training",
   numQuestions: 10,
@@ -1190,15 +1600,17 @@ function refreshStatsUI(){
   statAcc.textContent = acc + "%";
 }
 
-function setHeaderPills({subject, mode, availableOrCount, isInQuiz}){
-  pillSubject.textContent = "Materia: " + (subject || "—");
+function setHeaderPills({materia, topic, mode, availableOrCount, isInQuiz}){
+  pillSubject.textContent = "Materia: " + (materia || "—");
+  pillTopic.textContent = "Argomento: " + (topic || "—");
   pillMode.textContent = "Modalità: " + (mode === "exam" ? "Esame" : "Allenamento");
   pillCount.textContent = (isInQuiz ? "Domande: " : "Disponibili: ") + (availableOrCount ?? "—");
 }
 
 function currentAvailable(){
-  const s = subjectSelect.value;
-  return (QUESTION_BANK[s] || []).length;
+  const m = materiaSelect.value;
+  const t = topicSelect.value;
+  return getQuestions(m, t).length;
 }
 
 function updateSetupLimitsAndPills(){
@@ -1208,12 +1620,7 @@ function updateSetupLimitsAndPills(){
   const clamped = clamp(desired, 1, Math.max(1, avail));
   numQuestionsInput.value = String(clamped);
 
-  setHeaderPills({
-    subject: subjectSelect.value,
-    mode: modeSelect.value,
-    availableOrCount: avail,
-    isInQuiz: false
-  });
+  setHeaderPills({ materia: materiaSelect.value, topic: topicSelect.value, mode: modeSelect.value, availableOrCount: avail, isInQuiz: false });
 }
 
 /* ===========================
@@ -1221,8 +1628,8 @@ function updateSetupLimitsAndPills(){
  * =========================== */
 let quiz = null;
 
-function buildQuiz(subject, n, mode, shuffleOn){
-  const all = QUESTION_BANK[subject] || [];
+function buildQuiz(materia, topic, n, mode, shuffleOn){
+  const all = getQuestions(materia, topic);
   const totalAvailable = all.length;
 
   const nn = clamp(n, 1, Math.max(1, totalAvailable));
@@ -1232,7 +1639,7 @@ function buildQuiz(subject, n, mode, shuffleOn){
   pool = pool.slice(0, nn);
 
   return {
-    subject, mode, shuffleOn,
+    materia, topic, mode, shuffleOn,
     items: pool,
     index: 0,
     score: 0,
@@ -1267,10 +1674,10 @@ function showResults(){
 }
 
 function renderQuestion(){
-  const {items, index, score, subject, mode} = quiz;
+  const {items, index, score, materia, topic, mode} = quiz;
   const current = items[index];
 
-  tagSubject.textContent = subject;
+  tagSubject.textContent = `${materia} • ${topic}`;
   tagProgress.textContent = `Domanda ${index+1}/${items.length}`;
   tagScore.textContent = `Punteggio: ${score}`;
   progBar.style.width = `${Math.round(((index)/items.length)*100)}%`;
@@ -1298,12 +1705,7 @@ function renderQuestion(){
     optList.appendChild(b);
   });
 
-  setHeaderPills({
-    subject,
-    mode,
-    availableOrCount: items.length,
-    isInQuiz: true
-  });
+  setHeaderPills({ materia, topic, mode, availableOrCount: items.length, isInQuiz: true });
 }
 
 function choose(choiceIndex){
@@ -1370,7 +1772,7 @@ function finalize(){
 
   const pct = Math.round((quiz.score/quiz.items.length)*100);
   finalScore.textContent = `${quiz.score}/${quiz.items.length} (${pct}%)`;
-  finalMeta.textContent = `${quiz.subject} • Modalità: ${quiz.mode === "exam" ? "Esame" : "Allenamento"} • Mescola: ${quiz.shuffleOn ? "ON" : "OFF"}`;
+  finalMeta.textContent = `${quiz.materia} • ${quiz.topic} • Modalità: ${quiz.mode === "exam" ? "Esame" : "Allenamento"} • Mescola: ${quiz.shuffleOn ? "ON" : "OFF"}`;
 
   progBar.style.width = "100%";
 
@@ -1405,24 +1807,69 @@ function buildReviewText(answers){
  *           INIT
  * =========================== */
 function init(){
-  subjectSelect.innerHTML = "";
-  Object.keys(QUESTION_BANK).forEach(s => {
+  // Compatibilità: se esiste un vecchio "lastSubject", convertiamolo in (materia, argomento)
+  if((!prefs.lastMateria || !prefs.lastTopic) && prefs.lastSubject){
+    const parts = String(prefs.lastSubject).split(" – ");
+    const m = (parts[0] || "").trim();
+    const t = (parts.length >= 2 ? parts.slice(1).join(" – ") : "").trim();
+    if(m) prefs.lastMateria = m;
+    if(t) prefs.lastTopic = t;
+  }
+
+  // Popola Materie
+  materiaSelect.innerHTML = "";
+  getMaterie().forEach(m => {
     const o = document.createElement("option");
-    o.value = s; o.textContent = s;
-    subjectSelect.appendChild(o);
+    o.value = m; o.textContent = m;
+    materiaSelect.appendChild(o);
   });
 
-  if(prefs.lastSubject && QUESTION_BANK[prefs.lastSubject]){
-    subjectSelect.value = prefs.lastSubject;
+  function fillTopics(preferredTopic){
+    const m = materiaSelect.value;
+    topicSelect.innerHTML = "";
+    const topics = getTopics(m);
+    topics.forEach(t => {
+      const o = document.createElement("option");
+      o.value = t; o.textContent = t;
+      topicSelect.appendChild(o);
+    });
+
+    if(preferredTopic && topics.includes(preferredTopic)){
+      topicSelect.value = preferredTopic;
+    } else {
+      topicSelect.value = topics[0] || "";
+    }
   }
+
+  // Imposta valori iniziali (con fallback sicuro)
+  if(prefs.lastMateria && CATALOG[prefs.lastMateria]){
+    materiaSelect.value = prefs.lastMateria;
+  } else {
+    materiaSelect.value = getMaterie()[0] || "";
+    prefs.lastMateria = materiaSelect.value;
+  }
+
+  fillTopics(prefs.lastTopic);
+  prefs.lastTopic = topicSelect.value;
+
   modeSelect.value = prefs.mode || "training";
   numQuestionsInput.value = prefs.numQuestions || 10;
 
   shuffleState.textContent = prefs.shuffle ? "ON" : "OFF";
   btnShuffle.classList.toggle("toggle-on", prefs.shuffle);
 
-  subjectSelect.addEventListener("change", () => {
-    prefs.lastSubject = subjectSelect.value;
+  materiaSelect.addEventListener("change", () => {
+    prefs.lastMateria = materiaSelect.value;
+    // prova a mantenere lo stesso argomento se esiste anche nella nuova materia
+    const prevTopic = prefs.lastTopic;
+    fillTopics(prevTopic);
+    prefs.lastTopic = topicSelect.value;
+    savePrefs(prefs);
+    updateSetupLimitsAndPills();
+  });
+
+  topicSelect.addEventListener("change", () => {
+    prefs.lastTopic = topicSelect.value;
     savePrefs(prefs);
     updateSetupLimitsAndPills();
   });
@@ -1449,17 +1896,20 @@ function init(){
   });
 
   btnStart.addEventListener("click", () => {
-    const subject = subjectSelect.value;
+    const materia = materiaSelect.value;
+    const topic = topicSelect.value;
+
     const avail = currentAvailable();
     const n = clamp(parseInt(numQuestionsInput.value || "10", 10), 1, Math.max(1, avail));
     const mode = modeSelect.value;
 
-    prefs.lastSubject = subject;
+    prefs.lastMateria = materia;
+    prefs.lastTopic = topic;
     prefs.mode = mode;
     prefs.numQuestions = n;
     savePrefs(prefs);
 
-    quiz = buildQuiz(subject, n, mode, prefs.shuffle);
+    quiz = buildQuiz(materia, topic, n, mode, prefs.shuffle);
     showQuiz();
     renderQuestion();
   });
@@ -1469,8 +1919,8 @@ function init(){
 
   btnRetry.addEventListener("click", () => {
     if(!quiz) return;
-    const {subject, items, mode, shuffleOn} = quiz;
-    quiz = buildQuiz(subject, items.length, mode, shuffleOn);
+    const {materia, topic, items, mode, shuffleOn} = quiz;
+    quiz = buildQuiz(materia, topic, items.length, mode, shuffleOn);
     showQuiz();
     renderQuestion();
   });
